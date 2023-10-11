@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
 
             </section>
             <section className='w-full h-32 bg-Primary shadow-md mt-2 md:hidden'>
-                <h2 className='font-semibold text-2xl m-3 text-center'>My Account</h2>
+                <h2 className='font-semibold text-2xl m-3 text-center'>My Account 2</h2>
                 <div className=' w-full flex items-center justify-evenly gap-3'>
                     <Link href="/" className='text-3xl text-Secondary p-1 rounded hover:bg-slate-200'><FiBox /></Link>
                     <Link href="/" className='text-3xl text-Secondary p-1 rounded hover:bg-slate-200'>< FiShoppingBag /></Link>
