@@ -82,22 +82,17 @@ function Header() {
           className="w-28 md:w-32 select-none cursor-pointer"
         />
       </Link>
-      <div className="w-2/6 border hidden md:flex border-slate-400 shadow-md p-1 rounded-md flex items-center justify-between gap-2 relative">
-        <select name="categories" className="outline-none">
-          <option value="all">All</option>
-          <option value="residence">Residential</option>
-          <option value="commercial">Commercial</option>
-          <option value="studio">Studio</option>
-        </select>
+      <div className="w-2/6 border hidden md:flex border-slate-300 p-1 px-2 rounded-full  items-center justify-between gap-3 relative">
+      <HiOutlineSearch className="text-xl text-Secondary" />
+    
         <input
           type="text"
-          className="outline-none flex-1 border-l border-Secondary pl-1"
+          className="outline-none flex-1  pl-1"
           placeholder="Search products"
           value={search}
           onChange={SearchProduct}
         />
 
-        <HiOutlineSearch className="text-xl text-Secondary" />
 
         <div
           className={`absolute h-auto w-full border z-10 top-9 bg-white rounded p-3 max-h-96 overflow-hidden overflow-y-scroll  flex flex-col gap-1 ${search ? "block" : "hidden"

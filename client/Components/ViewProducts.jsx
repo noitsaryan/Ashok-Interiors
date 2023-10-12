@@ -1,47 +1,63 @@
-import { listProducts } from '@/lib/Utils/Panel';
-import Image from 'next/image';
-import React, { useEffect, useState } from 'react'
-import { AiTwotoneDelete } from 'react-icons/ai'
-function ViewProducts() {
-    const [data, setData] = useState([])
-    const getProducts = async () => {
-        const Data = await listProducts();
-        setData(Data.data.data)
-    }
-    useEffect(() => {
-        getProducts()
-    }, [])
+import { listProducts } from "@/lib/Utils/Panel";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import { AiTwotoneDelete } from "react-icons/ai";
+import { PiUserCirclePlusThin } from "react-icons/pi";
 
-    return (data ? <div className='max-w-xl mx-auto'>
-        {
-            data && data.map((e, i) => {
-                return <div key={i} className='space-y-4 w-full my-4 px-4 py-3 rounded-lg shadow-xl border'>
-                    <div className='flex md:flex-row flex-col items-start space-x-4'>
-                        <Image
-                            src={`http://localhost:4000/ProductImages/${e.productImages[0]}`}
-                            alt='productImage'
-                            width={500}
-                            height={500}
-                            className='md:w-44'
-                        />
-                        <div>
-                            <h1>Name: {e.title} </h1>
-                            <p >Desc: {e.description}</p>
-                        </div>
-                        <div className='flex-1'>
-                            <AiTwotoneDelete onClick={() => deleteProduct(e.sku)} className='text-red-600 cursor-pointer text-2xl' />
-                        </div>
-                    </div>
-                    <div className='flex space-x-4'>
-                        <p>Price: ₹{e.price}</p>
-                        <p>SKU: {e.sku}</p>
-                        <p>Category: {e.parentCategory}</p>
-                    </div>
+function ViewProducts() {
+  const [data, setData] = useState([]);
+  const getProducts = async () => {
+    const Data = await listProducts();
+    setData(Data.data.data);
+  };
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  return (
+    <main className="w-full h-auto  p-2 flex  items-center justify-center flex-col">
+      <section className="flex w-full gap-2 ">
+        <section className="flex w-full h-auto flex-col  overflow-y-scroll">
+          <div className="grid grid-cols-7 items-center justify-items-center h-16 p-3  font-semibold bg-slate-100 border-slate-200 border-t border-b w-full">
+            <p>No. </p>
+            <p>SKU</p>
+            <p>Image</p>
+            <p>Name</p> <p>Price</p> <p>Category</p>
+            <p>Remove</p>
+          </div>
+
+          {data &&
+            data.map((e, i) => {
+              return (
+                <div className="grid grid-cols-7 h-20 items-center justify-items-center text-center text-ellipsis my-4 border-b" key={i}>
+                  <span className="hover:text-red-500 cursor-pointer">{i+1}</span>
+                  <span className=" hover:text-red-500 cursor-pointer hover:font-semibold">
+                    {e.sku}
+                  </span>
+                    <Image
+                      src={`http://localhost:4000/ProductImages/${e.productImages[0]}`}
+                      alt="productImage"
+                      width={200}
+                      height={200}
+                      className="h-20 mb-2"
+                    />
+                  
+                  <span className="cursor-pointer truncate overflow-hidden text-ellipsis w-36" title="view product">
+                    {e.title}
+                  </span>
+                  <span>₹{e.price}</span>
+                  <p>{e.parentCategory}</p>
+                  <button
+                    className="bg-red-200 text-red-500 p-1 text-sm rounded-md hover:opacity-80"
+                    onClick={() => deleteProduct(e.sku)}
+                  >Remove</button>
                 </div>
-            })
-        }
-    </div> : <h1> No Products </h1>
-    )
+              );
+            })}
+        </section>
+      </section>
+    </main>
+  );
 }
 
-export default ViewProducts
+export default ViewProducts;

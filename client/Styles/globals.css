@@ -141,6 +141,10 @@ div img {
 .swiper-pagination-bullet {
   --swiper-pagination-color: var(--Primary);
 }
+::ng-deep .swiper-button-prev:after,
+::ng-deep .swiper-button-next:after {
+    font-size: 20px;
+}
 
 .HeroSection {
   display: flex;
