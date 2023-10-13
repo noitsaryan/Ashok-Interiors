@@ -1,37 +1,46 @@
-import { UploadProducts } from '@/lib/Utils/Panel';
-import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
+import { UploadProducts } from "@/lib/Utils/Panel";
+import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
+import { AiOutlineCloudUpload } from "react-icons/ai";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function NewProducts() {
   const uploadImage = useRef(null);
-  const [Title, setTitle] = useState('')
-  const [Price, setPrice] = useState()
-  const [SKU, setSKU] = useState('')
-  const [color, setColor] = useState('')
-  const [size, setSize] = useState('')
-  const [unit, setUnit] = useState('')
-  const [packaging, setPackaging] = useState('')
-  const [Description, setDescription] = useState('')
-  const [Category, setCategory] = useState('')
-  const [ProductImages, setProductImages] = useState([])
+  const [Title, setTitle] = useState("");
+  const [Price, setPrice] = useState();
+  const [SKU, setSKU] = useState("");
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
+  const [unit, setUnit] = useState("");
+  const [packaging, setPackaging] = useState("");
+  const [Description, setDescription] = useState("");
+  const [Category, setCategory] = useState("");
+  const [ProductImages, setProductImages] = useState([]);
 
   const onSubmit = async (e) => {
     try {
       const data = new FormData();
 
       for (const image of ProductImages) {
-        data.append('images', image);
+        data.append("images", image);
       }
 
-      const selectedOption = document.querySelector('select[name="category"]').value;
-      const response = await axios.post('http://localhost:4000/api/uploadImage', data);
-      const files = response.data.uploadedFiles
+      const selectedOption = document.querySelector(
+        'select[name="category"]'
+      ).value;
+      const response = await axios.post(
+        "http://localhost:4000/api/uploadImage",
+        data
+      );
+      const files = response.data.uploadedFiles;
 
       const specification = {
-        color, size, unit, packaging
-      }
+        color,
+        size,
+        unit,
+        packaging,
+      };
 
       const uploadData = await UploadProducts(
         Title,
@@ -42,10 +51,32 @@ function NewProducts() {
         Price,
         files,
         specification
-      )
-        console.log(uploadData)
-      if (uploadData.data.status == 'ok') {
-        toast.success('Product Added Successfully!', {
+      );
+      console.log(uploadData);
+      if (uploadData.data.status == "ok") {
+        toast.success("Product Added Successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else if (uploadData.data.errorCode == 404) {
+        toast.error("Please fill complete data", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else if (uploadData.data.errorCode == 403) {
+        toast.error("Product already exists!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -56,64 +87,177 @@ function NewProducts() {
           theme: "colored",
         });
       }
-      else if (uploadData.data.errorCode == 404) {
-        toast.error('Please fill complete data', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-          theme: "colored",
-        });
-      }
-      else if (uploadData.data.errorCode == 403) {
-        toast.error('Product already exists!', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-          theme: "colored",
-        });
-      }
-
     } catch (error) {
       console.error(error);
     }
   };
   return (
-    <div className='max-w-xl mx-auto'>
-      <div className='flex items-center flex-col justify-center space-y-3'  >
-        <input type="text" name='title' required placeholder='Enter Title' className='px-4 py-3 rounded-lg outline-gray-200 w-full' onChange={(e) => setTitle(e.target.value)} />
-        <input type="text" name='color' required placeholder='Enter Color' className='px-4 py-3 rounded-lg outline-gray-200 w-full' onChange={(e) => setColor(e.target.value)} />
-        <input type="text" name='size' required placeholder='Enter Size' className='px-4 py-3 rounded-lg outline-gray-200 w-full' onChange={(e) => setSize(e.target.value)} />
-        <input type="text" name='Unit' required placeholder='Enter Unit' className='px-4 py-3 rounded-lg outline-gray-200 w-full' onChange={(e) => setUnit(e.target.value)} />
-        <input type="text" name='packaging' required placeholder='Enter Packaging' className='px-4 py-3 rounded-lg outline-gray-200 w-full' onChange={(e) => setPackaging(e.target.value)} />
-        <input type="number" name='price' required placeholder='Enter Price' style={{ width: '100%' }} className='px-4 py-3 rounded-lg outline-gray-200' onChange={(e) => setPrice(e.target.value)} />
-        <input type="text" name='sku' required placeholder='Enter SKU' style={{ width: '100%' }} className='px-4 py-3 rounded-lg outline-gray-200' onChange={(e) => setSKU(e.target.value)} />
-        <input type="text" name='description' required placeholder='Enter Description' style={{ width: '100%' }} className='px-4 py-3 rounded-lg outline-gray-200' onChange={(e) => setDescription(e.target.value)} />
-        <input type="text" name='Category' required placeholder='Enter Category' style={{ width: '100%' }} className='px-4 py-3 rounded-lg outline-gray-200' onChange={(e) => setCategory(e.target.value)} />
-        <input type="file" hidden multiple name='productImages' ref={uploadImage} className='px-4 py-3 rounded-lg outline-gray-200' accept='image/*' onChange={(e) => { setProductImages(e.target.files) }} />
-        <button className='border-2 text-gray-400 border-gray-200 w-full py-3  relative rounded-lg border-dashed focus:' onClick={() => uploadImage.current.click()} > Upload Product  <p className='absolute mr-2 top-1/2 -translate-y-1/2 right-0 bg-Secondary rounded-full px-2 py-[2px] text-white'>
-          {
-            ProductImages.length
-          }
-        </p></button>
+    <main className="w-full h-screen flex gap-2 ">
+      <section className="w-full h-full bg-slate-50 shadow  border-slate-300 rounded-md border">
+        <section className="flex">
+          <div className="w-1/2">
+            <div className="w-full h-auto p-2 px-5">
+              <h2 className="text-slate-700 font-semibold">Product Title</h2>
+              <input
+                type="text"
+                className="p-1 w-full border-slate-300 border rounded-md mt-1"
+                name="title"
+                required
+                placeholder="Enter Title"
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <p className="text-xs opacity-50 font-semibold">
+                Do not exceed more than 25 characters
+              </p>
+            </div>
+            <div className="w-full h-auto  p-2 px-5 grid grid-cols-2 gap-3">
+              <span>
+                <h2 className="text-slate-700 font-semibold">Category ⓘ</h2>
+                <select
+                  className="p-1 w-full border-slate-300 border rounded-md mt-1"
+                  name="category"
+                >
+                  <option>Select</option>
+                  <option value="residence">Residence</option>
+                  <option value="commercial">Commercial</option>
+                  <option value="studio">Studio</option>
+                </select>
+                <p className="text-xs opacity-50 font-semibold"></p>
+              </span>
+              <span>
+                <h2 className="text-slate-700 font-semibold">Sub Category ⓘ</h2>
+                <input
+                  type="text"
+                  className="p-1 w-full border-slate-300 border rounded-md mt-1"
+                  name="Category"
+                  required
+                  placeholder="Enter Category"
+                  onChange={(e) => setCategory(e.target.value)}
+                />
+              </span>
+            </div>
 
-        <select name='category' className='px-4 py-3 rounded-lg outline-gray-200'>
-          <option value='residence' >Residence</option>
-          <option value='studio'>Studio</option>
-          <option value='commercial'>Commercial</option>
-        </select>
-        <button onClick={onSubmit} className='bg-gray-200 w-full py-3 rounded-lg'> Add </button>
-      </div>
+            <div className="w-full h-auto  p-2 px-5 grid grid-cols-2 gap-3">
+              <span>
+                <h2 className="text-slate-700 font-semibold">SKU ⓘ</h2>
+                <input
+                  type="text"
+                  className="p-1 w-full border-slate-300 border rounded-md mt-1"
+                  name="sku"
+                  required
+                  placeholder="Enter SKU"
+                  onChange={(e) => setSKU(e.target.value)}
+                />
+              </span>
+              <span>
+                <h2 className="text-slate-700 font-semibold">Price</h2>
+                <p className="p-1 w-full border-slate-300 border rounded-md mt-1 bg-white">
+                  ₹{" "}
+                  <input
+                    type="number"
+                    className="bg-transparent"
+                    name="price"
+                    required
+                    placeholder="Enter Price"
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
+                </p>
+              </span>
+            </div>
+            <div className="w-full h-auto  p-2 px-5 gap-3">
+              <span>
+                <h2 className="text-slate-700 font-semibold">Description ⓘ</h2>
+                <textarea
+                  cols="30"
+                  rows="10"
+                  className="max-h-28  w-full border-slate-300 border rounded-md mt-1"
+                  name="Category"
+                  required
+                  placeholder="Enter Category"
+                  onChange={(e) => setCategory(e.target.value)}
+                ></textarea>
+              </span>
+            </div>
+          </div>
+          <div className="border-l px-3 w-1/2 p-2 flex flex-col relative">
+            <h2 className="text-slate-700 font-semibold">Product Image</h2>
+            <div className="h-44 w-full border-5 rounded-lg border-dashed border-2 mt-8 border-slate-300 flex items-center justify-center">
+            <input type="file" hidden multiple name='productImages' ref={uploadImage} className='px-4 py-3 rounded-lg outline-gray-200' accept='image/*' onChange={(e) => { setProductImages(e.target.files) }} />
+
+              <button onClick={() => uploadImage.current.click()} className="w-full h-full">
+                {" "}
+                <p className="font-semibold opacity-60 flex items-center justify-center flex-col"><AiOutlineCloudUpload className="text-5xl text-center "/>Upload Your Images</p>
+
+               
+              </button>
+            </div>
+
+            <h3 className="mt-3=p-1 w-3/12 opacity-75 text-Secondary font-semibold text-center">
+                  Total Images: {ProductImages.length}
+                </h3>
+
+                <span className="absolute bottom-2 left-3">
+                <button className="bg-Secondary text-white p-2 rounded px-5 hover:opacity-70 transition-all">Upload Product</button>
+                <p className="text-xs font-semibold  opacity-70 mt-1">Fill all input fieds before uploading products</p>
+                </span>
+          </div>
+        </section>
+
+        <div className="w-full h-auto p-2 px-5 border">
+          <h2 className="font-semibold text-red-400 mb-3">
+            Product Specifications ⓘ
+          </h2>
+          <div className="grid grid-cols-4">
+            <div>
+              <h3>Product Unit</h3>
+              <input
+                type="text"
+                className="border-slate-300 border rounded-md mt-1 p-1"
+                name="Unit"
+                required
+                placeholder="Enter Unit"
+                onChange={(e) => setUnit(e.target.value)}
+              />
+            </div>
+            <div>
+              <h3>Product Size</h3>
+              <input
+                type="text"
+                className="border-slate-300 border rounded-md mt-1 p-1"
+                name="size"
+                required
+                placeholder="Enter Size"
+                onChange={(e) => setSize(e.target.value)}
+              />
+            </div>
+            <div>
+              <h3>Product Color</h3>
+              <input
+                type="text"
+                className="border-slate-300 border rounded-md mt-1 p-1"
+                name="color"
+                required
+                placeholder="Enter Color"
+                onChange={(e) => setColor(e.target.value)}
+              />
+            </div>
+            <div>
+              <h3>Product Packaging</h3>
+              <input
+                type="text"
+                className="border-slate-300 border rounded-md mt-1 p-1"
+                name="packaging"
+                required
+                placeholder="Enter Packaging"
+                onChange={(e) => setPackaging(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
       <ToastContainer />
-    </div>
-  )
+    </main>
+  );
 }
 
 export default NewProducts;

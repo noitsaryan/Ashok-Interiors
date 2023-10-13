@@ -31,7 +31,7 @@ function AdminPanel() {
   }, [])
 
   return (
-    <main className='relative px-16 my-8 w-full'>
+    <main className='relative px-10 my-8 w-full'>
       <aside className='fixed py-8 px-2 left-0 top-1/2 -translate-y-1/2 bg-white shadow-2xl border rounded-lg  z-10'>
         <nav className='list-none space-y-5'>
           <li className='cursor-pointer hover:-translate-y-1 transition-all ' title='Orders' onClick={() => setSection('orders')} ><FiPackage size={30} /></li>
