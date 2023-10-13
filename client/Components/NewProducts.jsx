@@ -9,6 +9,10 @@ function NewProducts() {
   const [Title, setTitle] = useState('')
   const [Price, setPrice] = useState()
   const [SKU, setSKU] = useState('')
+  const [color, setColor] = useState('')
+  const [size, setSize] = useState('')
+  const [unit, setUnit] = useState('')
+  const [packaging, setPackaging] = useState('')
   const [Description, setDescription] = useState('')
   const [Category, setCategory] = useState('')
   const [ProductImages, setProductImages] = useState([])
@@ -24,7 +28,11 @@ function NewProducts() {
       const selectedOption = document.querySelector('select[name="category"]').value;
       const response = await axios.post('http://localhost:4000/api/uploadImage', data);
       const files = response.data.uploadedFiles
-      console.log(response.data.uploadedFiles)
+
+      const specification = {
+        color, size, unit, packaging
+      }
+
       const uploadData = await UploadProducts(
         Title,
         Category,
@@ -32,9 +40,10 @@ function NewProducts() {
         Description,
         SKU,
         Price,
-        files
+        files,
+        specification
       )
-
+        console.log(uploadData)
       if (uploadData.data.status == 'ok') {
         toast.success('Product Added Successfully!', {
           position: "top-right",
@@ -80,6 +89,10 @@ function NewProducts() {
     <div className='max-w-xl mx-auto'>
       <div className='flex items-center flex-col justify-center space-y-3'  >
         <input type="text" name='title' required placeholder='Enter Title' className='px-4 py-3 rounded-lg outline-gray-200 w-full' onChange={(e) => setTitle(e.target.value)} />
+        <input type="text" name='color' required placeholder='Enter Color' className='px-4 py-3 rounded-lg outline-gray-200 w-full' onChange={(e) => setColor(e.target.value)} />
+        <input type="text" name='size' required placeholder='Enter Size' className='px-4 py-3 rounded-lg outline-gray-200 w-full' onChange={(e) => setSize(e.target.value)} />
+        <input type="text" name='Unit' required placeholder='Enter Unit' className='px-4 py-3 rounded-lg outline-gray-200 w-full' onChange={(e) => setUnit(e.target.value)} />
+        <input type="text" name='packaging' required placeholder='Enter Packaging' className='px-4 py-3 rounded-lg outline-gray-200 w-full' onChange={(e) => setPackaging(e.target.value)} />
         <input type="number" name='price' required placeholder='Enter Price' style={{ width: '100%' }} className='px-4 py-3 rounded-lg outline-gray-200' onChange={(e) => setPrice(e.target.value)} />
         <input type="text" name='sku' required placeholder='Enter SKU' style={{ width: '100%' }} className='px-4 py-3 rounded-lg outline-gray-200' onChange={(e) => setSKU(e.target.value)} />
         <input type="text" name='description' required placeholder='Enter Description' style={{ width: '100%' }} className='px-4 py-3 rounded-lg outline-gray-200' onChange={(e) => setDescription(e.target.value)} />

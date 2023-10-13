@@ -1,5 +1,5 @@
 'use client'
-import axios from "axios"
+
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 import Product from "@/Components/Product"
@@ -8,11 +8,13 @@ import { fetchByCategory, fetchById } from "@/lib/Utils/Panel"
 import { PinCode } from "@/lib/Utils/PinCode"
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import { addCart, fetchUser, getCookie } from "@/lib/Utils/Auth"
+import { addCart } from "@/lib/Utils/Auth"
+import { useAppContext } from "@/context/adminStore"
 import { useRouter } from "next/navigation"
-import { newOrder } from "@/lib/Utils/PaymentGateway"
+
 
 function page({ params }) {
+  const {value, setValue} = useAppContext()
   const [data, setData] = useState({
     productImages: []
   })
@@ -21,15 +23,14 @@ function page({ params }) {
   const [image, setImage] = useState()
   const [email, setEmail] = useState()
   const [related, setRelated] = useState([])
-  const [address, setAddress] = useState('')
-  const [value, setValue] = useState(1)
+
   const [pinInput, setPinInput] = useState('')
   const [load, setLoad] = useState(true)
   const { productImages } = data;
   const { sku } = params
   const { category } = params;
-
   const route = useRouter(null)
+
 
   const fetchProduct = async () => {
     const result = await fetchById(sku)
@@ -40,15 +41,6 @@ function page({ params }) {
   const getProducts = async () => {
     const data = await fetchByCategory(category)
     setRelated(data.data.data)
-  }
-
-  const userDetails = async () => {
-    const token = await getCookie()
-    setEmail(token.data.value.email)
-    if (token.data && token.data.value.email) {
-      const res = await fetchUser(token.data.value.email)
-      setAddress(res.data.data.address)
-    }
   }
 
   const fetchPin = async (e) => {
@@ -81,92 +73,10 @@ function page({ params }) {
     }
   }
 
-  const initializeRazorpay = () => {
-    return new Promise((resolve) => {
-      const script = document.createElement("script");
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
-
-      script.onload = () => {
-        resolve(true);
-      };
-      script.onerror = () => {
-        resolve(false);
-      };
-
-      document.body.appendChild(script);
-    });
-  };
-
-  const makePayment = async (amount) => {
-    const res = await initializeRazorpay();
-
-    if (!res) {
-      alert("Razorpay SDK Failed to load");
-      return;
-    }
-
-    const data = await axios.get(`http://localhost:4000/api/checkout/${amount}`)
-
-    const options = {
-      key: process.env.RAZORPAY_KEY,
-      name: "Ashok Interiors",
-      currency: 'INR',
-      amount: data.data.order.amount,
-      order_id: data.data.order.id,
-      description: "Thankyou for purchasing our product!",
-      image: "https://ashok-interiors.vercel.app/_next/image?url=%2Fmainlogo.png&w=750&q=75",
-      handler: async function (response) {
-        const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = response;
-        const payment = {
-          razorpay_order_id, razorpay_payment_id, razorpay_signature
-        }
-        const order = await newOrder(data.data.order.id, payment, sku, value, email);
-        console.log(order)
-        toast.success('Order Placed', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-          theme: "colored",
-        });
-        // route.push('/successful')
-      },
-      prefill: {
-        name: "Dharamraj Vishwakarma",
-        email: "dev.ashokinteriors@gmail.com",
-        contact: 9819215088,
-      },
-    };
-
-    const check = await fetchUser(email);
-    if (check.data.data.address === '') {
-      toast.info('Add your address before placing order!', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: false,
-        progress: undefined,
-        theme: "colored",
-      })
-      setTimeout(() => {
-        route.push('/account/address')
-      }, 2000)
-    } else {
-      const paymentObject = await new window.Razorpay(options);
-      paymentObject.open();
-    }
-
-  };
 
   useEffect(() => {
     fetchProduct();
     getProducts();
-    userDetails()
   }, [])
 
   setTimeout(() => {
@@ -287,23 +197,7 @@ function page({ params }) {
             </div>
 
             <div className=" md:flex md:flex-row space-y-1 md:space-y-0 flex-col px-4 items-center">
-              <button className="w-full md:w-auto text-lg font-medium bg-Secondary px-5 mx-1 rounded-sm hover:opacity-80 text-white py-2 " onClick={() => {
-                if (!email) {
-                  toast.info('Please log in to order!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: false,
-                    progress: undefined,
-                    theme: "colored",
-                  })
-                } else {
-                  makePayment(data.price * value)
-                }
-
-              }}> Buy now</button>
+              <button className="w-full md:w-auto text-lg font-medium bg-Secondary px-5 mx-1 rounded-sm hover:opacity-80 text-white py-2 " onClick={() => route.push(`/checkout/${sku}`)} > Buy now</button>
               <button className=" w-full md:w-auto  text-lg font-medium  px-4 mx-1 text-Secondary ring-1 ring-inset ring-Secondary py-2 rounded-sm hover:opacity-80 " onClick={async () => {
                 if (!email) {
                   toast.info('Please log in to continue!', {

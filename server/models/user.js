@@ -1,5 +1,5 @@
-const { models, model, Schema } = require('mongoose')
- 
+const { models, model, Schema } = require("mongoose");
+
 const RegisterSchema = new Schema({
   name: {
     type: String,
@@ -22,7 +22,7 @@ const RegisterSchema = new Schema({
     required: true,
     select: false,
   },
-  address: {
+  shipping_address: {
     type: String,
   },
   cart: {
@@ -36,9 +36,12 @@ const RegisterSchema = new Schema({
       message: String,
       sku: String,
       quantity: Number,
-      completed: Boolean
-    }
-  ]
+      completed: Boolean,
+      shipping_address: String,
+      billing_address: String,
+      phone: Number
+    },
+  ],
 });
 
 const Register = models?.Register || model("Register", RegisterSchema);

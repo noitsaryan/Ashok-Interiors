@@ -22,7 +22,7 @@ const UserAddress = () => {
   const userAddress = async () => {
     const res = await getCookie();
     const res2 = await fetchUser(res.data.value.email)
-    setAddress(res2.data.data.address)
+    setAddress(res2.data.data.shipping_address)
     setEmail(res2.data.data.email)
   }
 
@@ -61,11 +61,11 @@ const UserAddress = () => {
     <main className='flex flex-col  gap-3 overflow-hidden overflow-y-scroll'>
       <ToastContainer />
       <label className='bg-slate-100 p-4 rounded'>
-        <span className='font-semibold text-Secondary'>Full Address:</span><br />
+        <span className='font-semibold text-Secondary'>Shipping Address:</span><br />
         <input value={address} disabled className='p-2 w-full rounded mt-2 bg-Primary' />
       </label>
       <hr />
-      <h2 className='font-semibold  text-xl text-gray-400 '>Update Address:</h2>
+      <h2 className='font-semibold  text-xl text-gray-400 '>Update Shipping Address:</h2>
       <label className='bg-slate-100 p-4 rounded'>
         <span className='font-semibold text-Secondary'>Street Name:</span><br />
         <input type="text" onChange={(e) => setStreetName(e.target.value)} className='p-2 w-full rounded mt-2 bg-Primary' />

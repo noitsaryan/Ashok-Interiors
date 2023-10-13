@@ -111,6 +111,7 @@ const uploadProduct = async (req, res) => {
       category,
       parentCategory,
       description,
+      specification,
       sku,
       price,
       productImages,
@@ -123,7 +124,8 @@ const uploadProduct = async (req, res) => {
       !description ||
       !sku ||
       !price ||
-      !productImages
+      !productImages ||
+      !specification
     ) {
       return res.json({
         success: false,
@@ -146,6 +148,7 @@ const uploadProduct = async (req, res) => {
       category,
       parentCategory,
       description,
+      specification,
       sku,
       price,
       productImages,

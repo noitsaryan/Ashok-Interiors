@@ -7,7 +7,8 @@ export async function UploadProducts(
   description,
   sku,
   price,
-  productImages
+  productImages,
+  specification
 ) {
   const res = await axios.post("http://localhost:4000/api/uploadProduct", {
     title,
@@ -16,7 +17,8 @@ export async function UploadProducts(
     description,
     sku,
     price,
-    productImages
+    productImages,
+    specification
   });
   return res;
 }

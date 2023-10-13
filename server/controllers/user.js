@@ -30,8 +30,8 @@ const userLogin = async (req, res) => {
         message: `Email does not exists!`,
       });
     }
-    
-    console.log(Authenticate)
+
+    console.log(Authenticate);
 
     if (Authenticate.password) {
       const isTrue = await bcrypt.compare(password, Authenticate.password);
@@ -240,8 +240,26 @@ const fetchUser = async (req, res) => {
 
 const newOrder = async (req, res) => {
   try {
-    const { oid, payment, sku, quantity, email } = req.body;
-    if (!oid || !payment || !sku || !email || !quantity) {
+    const {
+      oid,
+      payment,
+      sku,
+      quantity,
+      s_address,
+      b_address,
+      phoneNo,
+      email
+    } = req.body;
+    if (
+      !oid ||
+      !payment ||
+      !sku ||
+      !email ||
+      !quantity ||
+      !s_address ||
+      !b_address ||
+      !phoneNo
+    ) {
       return res.json({
         success: false,
         message: `Please fill all the empty data!`,
@@ -273,6 +291,9 @@ const newOrder = async (req, res) => {
       ).toISOString()}!`,
       sku,
       quantity,
+      shipping_address: s_address,
+      billing_address: b_address,
+      phone: phoneNo,
       completed: false,
     };
 
@@ -289,13 +310,10 @@ const newOrder = async (req, res) => {
         message: "User not found or no changes made",
       });
     }
-    const Address = await Register.find({ email }).select("address").exec();
-    const { address } = Address[0];
-
+    
     const newObject = {
       ...orderObject,
-      email,
-      address,
+      email
     };
 
     const admin = await Admin.updateOne(
@@ -304,7 +322,8 @@ const newOrder = async (req, res) => {
     );
 
     if (admin.acknowledged) {
-      const string = ` Product ID: ${newObject.sku}, Customer Address : ${newObject.address}, Customer Email: ${newObject.email}, Quantity: ${newObject.quantity} `;
+      const string = ` Product ID: ${newObject.sku}, Shipping Address : ${s_address},
+      Billing Address: ${b_address}, Customer Phone: ${phoneNo}, Customer Email: ${newObject.email}, Quantity: ${newObject.quantity} `;
       await orderMail(string);
     }
 
@@ -338,7 +357,7 @@ const updateUser = async (req, res) => {
         },
         {
           $set: {
-            address,
+            shipping_address: address,
           },
         }
       );
@@ -486,7 +505,7 @@ const checkout = async (req, res) => {
 const getCookie = async (req, res) => {
   try {
     const data = req.cookies;
-    const value = decode(data.userToken)
+    const value = decode(data.userToken);
     if (!data) {
       return res.json({
         message: `Token not found!`,
@@ -495,7 +514,7 @@ const getCookie = async (req, res) => {
     return res.json({
       success: true,
       data,
-      value
+      value,
     });
   } catch (error) {
     return res.json({

@@ -21,9 +21,11 @@ const AdminSchema = new Schema({
       message: String,
       sku: String,
       completed: Boolean,
-      address: String,
       email: String,
       quantity: Number,
+      shipping_address: String,
+      billing_address: String,
+      phone: Number,
     },
   ],
 });
