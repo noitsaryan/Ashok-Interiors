@@ -76,9 +76,10 @@ export default function page() {
       <div className="w-full px-2 h-[450px] md:h-[550px] flex gap-2">
         <div className=" w-full  md:w-3/4 h-full">
           <Swiper
-            modules={[Autoplay, Pagination, Navigation]}
+            modules={[Autoplay,EffectFade, Pagination, Navigation]}
             pagination={{ clickable: true }}
             className="w-full h-full"
+            effect={'fade'}
             spaceBetween={50}
             slidesPerView={1}
             navigation={
@@ -215,7 +216,7 @@ export default function page() {
       <section className="px-4">
         <Swiper
           className="w-full h-full px-4 items-center gap-6  mx-auto"
-          modules={[Pagination]}
+          modules={[Pagination, Navigation]}
           navigation
           pagination={{ clickable: true }}
           spaceBetween={10}

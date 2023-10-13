@@ -93,7 +93,7 @@ const Page = () => {
                 {elem.ImgTxt.map((elem,i) => {
                     return (
                       <div  key={uuidv4()} className="md:px-3">
-                        <h1 className="text-3xl text-Secondary font-semibold underline">{elem.studioName}</h1>
+                        <h1 className="text-3xl text-Secondary font-semibold underline w-full text-center m-3 font-light">{elem.studioName}</h1>
                         <div  className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full mb-9">
                         {
                           elem.stdImg.map((elem,i)=>{
