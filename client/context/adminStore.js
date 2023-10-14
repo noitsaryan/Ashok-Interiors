@@ -6,6 +6,8 @@ export const AppProvider = ({ children }) => {
   const [login, setLogin] = useState(false);
   const [adminLogin, setAdminLogin] = useState(Boolean);
   const [value, setValue] = useState(Number);
+  const [isOpen, setIsOpen] = useState(false);
+  const [sku, setSKU] = useState("");
   async function checkToken() {
     const res = await getCookie();
     if (res.data.value) {
@@ -24,6 +26,10 @@ export const AppProvider = ({ children }) => {
     setAdminLogin,
     value,
     setValue,
+    isOpen,
+    setIsOpen,
+    sku,
+    setSKU,
   };
   return <AppContext.Provider value={data}>{children}</AppContext.Provider>;
 };

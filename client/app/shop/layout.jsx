@@ -18,8 +18,8 @@ export default function RootLayout({ children }) {
                     <Link href="/shop/commercial"><li className={`hover:text-gray-400 transition-all cursor-pointer ${location === '/shop/commercial' ? 'border-b-2 border-Secondary' : 'border-b-2 border-transparent'}`}>Commercial</li></Link>
                     <Link href="/shop/studio"><li className={`hover:text-gray-400 transition-all cursor-pointer ${location === '/shop/studio' ? 'border-b-2 border-Secondary' : 'border-b-2 border-transparent'}`}>Studio</li></Link>
                 </div>
-                <Link className='text-Secondary relative text-2xl px-4 py-2  hidden md:block rounded-full flex ' href="/cart">
-                    <RiShoppingCartLine />
+                <Link className='text-Secondary relative text-2xl px-4 py-2  hidden md:block rounded-full flex ' href="/account/carts">
+                    <RiShoppingCartLine  />
                     <p className="absolute top-0 text-sm right-1">{cart}</p>
                 </Link>
             </header>

@@ -8,7 +8,7 @@ import { fetchByCategory, fetchById } from "@/lib/Utils/Panel"
 import { PinCode } from "@/lib/Utils/PinCode"
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import { addCart } from "@/lib/Utils/Auth"
+import { addCart, getCookie } from "@/lib/Utils/Auth"
 import { useAppContext } from "@/context/adminStore"
 import { useRouter } from "next/navigation"
 
@@ -35,7 +35,7 @@ function page({ params }) {
   const fetchProduct = async () => {
     const result = await fetchById(sku);
     setData(result.data.data);
-    setImage(result.data.data.productImages);
+    setImage(result.data.data.productImages?.[0]);
   };
 
   const getProducts = async () => {
@@ -83,9 +83,16 @@ function page({ params }) {
   };
 
 
+  const fetchUserData = async () => {
+    const res = await getCookie();
+    setEmail(res.data.value.email)
+    return res
+  }
+
   useEffect(() => {
     fetchProduct();
     getProducts();
+    fetchUserData()
   }, [])
 
   setTimeout(() => {
@@ -134,7 +141,7 @@ function page({ params }) {
           </div>
         </div>
       ) : (
-        <section className="flex flex-col md:items-start items-center mx-auto justify-center md:px-10 md:flex-row">
+        <section className="flex flex-col md:items-start items-center mx-auto justify-center my-8 md:px-10 md:flex-row">
           <div className="flex flex-col items-center p-5 bg-white rounded-md  ">
             <div>
               <div className="text-sm text-left font-normal text-slate-400 my-2">
@@ -153,11 +160,11 @@ function page({ params }) {
                 width={500}
                 height={500}
                 alt="Product Image"
-                className="max-w-2xl"
-                src={`http://localhost:4000/ProductImages/${image?.[0]}`}
+                className="max-w-2xl object-contain max-h-min"
+                src={`http://localhost:4000/ProductImages/${image}`}
               />
             </div>
-            <div className="flex items-center space-x-5  p-2 rounded-md my-2">
+            <div className="flex items-center space-x-5 overflow-y-hidden max-h-16 p-2 rounded-md my-2">
               {productImages &&
                 productImages.map((e, i) => (
                   <Image
@@ -190,16 +197,16 @@ function page({ params }) {
               <div
                 className={`text-left text-sm max-w-md ${
                   expand ? "overflow-visible h-auto" : "overflow-hidden"
-                } ${switchDiv ? "hidden" : "visible"} h-20`}
+                } ${switchDiv ? "hidden" : "visible"} h-6`}
                 
               >
                 <p> {data.description}</p>
               </div>
               <div className={`text-left w-full flex flex-col gap-2 text-sm ${switchDiv ? "visible" : "hidden"}`}>
-                <p>Unit (U):1</p>
-                <p>Size: 58 x 58</p>
-                <p>Color: Golden, Brown, Custom</p>
-                <p>Material: Mango Wood</p>
+                <p>Unit (U):{data.specification.unit}</p>
+                <p>Size: {data.specification.size}</p>
+                <p>Color: {data.specification.color} </p>
+                <p>Packaging: {data.specification.packaging}</p>
               </div>
               <button
                 className={`text-sm font-semibold ${
@@ -209,14 +216,14 @@ function page({ params }) {
               >
                 {expand ? "Less" : "More"}
               </button>
-              <div className="flex flex-col gap-3 border-t border-b py-3 w-full">
+              {/* <div className="flex flex-col gap-3 border-t border-b py-3 w-full">
                 <span className="border-b-2 border-Secondary w-10">Color</span>
                 <div className="flex gap-2">
                  <div className="h-9 w-9 rounded-md  bg-red-900"></div> 
                  <div className="h-9 w-9 rounded-md  bg-yellow-600"></div> 
                  <div className="h-9 w-9 rounded-md  bg-yellow-900"></div> 
                  </div>
-              </div>
+              </div> */}
             </div>
             <div className="flex-col md:flex-row flex items-center font-semibold m-4 gap-2">
               <p>Quantity</p>

@@ -18,7 +18,7 @@ export async function UploadProducts(
     sku,
     price,
     productImages,
-    specification
+    specification,
   });
   return res;
 }
@@ -38,6 +38,34 @@ export async function fetchById(sku) {
   return res;
 }
 export async function fetchOrders() {
-  const res = await axios.get('http://localhost:4000/api/orders')
-  return res
+  const res = await axios.get("http://localhost:4000/api/orders");
+  return res;
+}
+
+export async function updateProduct(
+  title,
+  category,
+  parentCategory,
+  description,
+  specification,
+  sku,
+  price,
+  productImages
+) {
+  const res = await axios.put("http://localhost:4000/api/product/update", {
+    title,
+    category,
+    parentCategory,
+    description,
+    specification,
+    sku,
+    price,
+    productImages,
+  });
+  return res.data;
+}
+
+export async function deleteProduct(sku) {
+  const res = await axios.delete(`http://localhost:4000/api/delete/${sku}`);
+  return res.data;
 }

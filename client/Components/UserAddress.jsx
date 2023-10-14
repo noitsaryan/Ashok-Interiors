@@ -34,7 +34,7 @@ const UserAddress = () => {
     })
     console.log(res)
     if (res.data.success) {
-      toast.success('Name updated successfully!', {
+      toast.success('Address updated successfully!', {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,

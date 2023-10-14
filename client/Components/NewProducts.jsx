@@ -18,7 +18,7 @@ function NewProducts() {
   const [Category, setCategory] = useState("");
   const [ProductImages, setProductImages] = useState([]);
 
-  const onSubmit = async (e) => {
+  const onSubmit = async () => {
     try {
       const data = new FormData();
 
@@ -35,6 +35,8 @@ function NewProducts() {
       );
       const files = response.data.uploadedFiles;
 
+      const reversedFiles = files.reverse()
+
       const specification = {
         color,
         size,
@@ -49,7 +51,7 @@ function NewProducts() {
         Description,
         SKU,
         Price,
-        files,
+        reversedFiles,
         specification
       );
       console.log(uploadData);
@@ -92,8 +94,8 @@ function NewProducts() {
     }
   };
   return (
-    <main className="w-full h-screen flex gap-2 ">
-      <section className="w-full h-full bg-slate-50 shadow  border-slate-300 rounded-md border">
+    <main className="w-full  flex gap-2 ">
+      <section className="w-full h-full p-8 bg-slate-50 shadow  border-slate-300 rounded-md border">
         <section className="flex">
           <div className="w-1/2">
             <div className="w-full h-auto p-2 px-5">
@@ -174,7 +176,7 @@ function NewProducts() {
                   name="Category"
                   required
                   placeholder="Enter Category"
-                  onChange={(e) => setCategory(e.target.value)}
+                  onChange={(e) => setDescription(e.target.value)}
                 ></textarea>
               </span>
             </div>
@@ -182,24 +184,24 @@ function NewProducts() {
           <div className="border-l px-3 w-1/2 p-2 flex flex-col relative">
             <h2 className="text-slate-700 font-semibold">Product Image</h2>
             <div className="h-44 w-full border-5 rounded-lg border-dashed border-2 mt-8 border-slate-300 flex items-center justify-center">
-            <input type="file" hidden multiple name='productImages' ref={uploadImage} className='px-4 py-3 rounded-lg outline-gray-200' accept='image/*' onChange={(e) => { setProductImages(e.target.files) }} />
+              <input type="file" hidden multiple name='productImages' ref={uploadImage} className='px-4 py-3 rounded-lg outline-gray-200' accept='image/*' onChange={(e) => { setProductImages(e.target.files) }} />
 
               <button onClick={() => uploadImage.current.click()} className="w-full h-full">
                 {" "}
-                <p className="font-semibold opacity-60 flex items-center justify-center flex-col"><AiOutlineCloudUpload className="text-5xl text-center "/>Upload Your Images</p>
+                <p className="font-semibold opacity-60 flex items-center justify-center flex-col"><AiOutlineCloudUpload className="text-5xl text-center " />Upload Your Images</p>
 
-               
+
               </button>
             </div>
 
             <h3 className="mt-3=p-1 w-3/12 opacity-75 text-Secondary font-semibold text-center">
-                  Total Images: {ProductImages.length}
-                </h3>
+              Total Images: {ProductImages.length}
+            </h3>
 
-                <span className="absolute bottom-2 left-3">
-                <button className="bg-Secondary text-white p-2 rounded px-5 hover:opacity-70 transition-all">Upload Product</button>
-                <p className="text-xs font-semibold  opacity-70 mt-1">Fill all input fieds before uploading products</p>
-                </span>
+            <span className="absolute bottom-2 left-3">
+              <button onClick={onSubmit} className="bg-Secondary text-white p-2 rounded px-5 hover:opacity-70 transition-all">Upload Product</button>
+              <p className="text-xs font-semibold  opacity-70 mt-1">Fill all input fieds before uploading products</p>
+            </span>
           </div>
         </section>
 
