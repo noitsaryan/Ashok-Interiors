@@ -7,7 +7,7 @@ export const AppProvider = ({ children }) => {
   const [adminLogin, setAdminLogin] = useState(Boolean);
   const [value, setValue] = useState(Number);
   const [isOpen, setIsOpen] = useState(false);
-  const [sku, setSKU] = useState("");
+  const [sku, setSKU] = useState('AIWD002');
   async function checkToken() {
     const res = await getCookie();
     if (res.data.value) {

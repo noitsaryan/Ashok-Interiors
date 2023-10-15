@@ -11,35 +11,48 @@ function Orders() {
   const [shipping, setShipping] = useState("");
   const [delivered, setDelivered] = useState("");
   const [active, setActive] = useState(null);
+  const [status, setStatus] = useState(0)
 
   const statusDiv = [
     {
       title: "RECENT",
       bgcolor: "bg-blue-600",
       txtcolor: "text-blue-600",
-
-      num: "9",
+      num:data.length,
+      status: 0,
     },
     {
       title: "PENDING",
       bgcolor: "bg-red-600",
       txtcolor: "text-red-600",
-
-      num: "4",
+      num:data.filter(
+        (e) => {
+          return e.status[1].completed
+        }
+      ).length,
+      status: 1
     },
     {
       title: "SHIPPING",
       bgcolor: "bg-yellow-500",
       txtcolor: "text-yellow-500",
-
-      num: "5",
+      num:data.filter(
+        (e) => {
+          return e.status[2].completed
+        }
+      ).length,
+      status: 2
     },
     {
       title: "COMPLETED",
       bgcolor: "bg-green-600",
       txtcolor: "text-green-600",
-
-      num: "12",
+      num:data.filter(
+        (e) => {
+          return e.status[3].completed
+        }
+      ).length,
+      status: 3
     },
   ];
 
@@ -47,7 +60,6 @@ function Orders() {
     const res = await fetchOrders();
     let array = res.data.orders;
     const reversed = array.reverse();
-    console.log(reversed)
     setData(reversed);
   }
 
@@ -64,6 +76,9 @@ function Orders() {
   useEffect(() => {
     order();
   }, []);
+  useEffect(() => {
+    console.log(status)
+  }, [status])
 
   return (
     <main className="w-full h-auto  p-2 flex  items-center justify-center flex-col">
@@ -74,6 +89,7 @@ function Orders() {
             <p
               className={`${elem.bgcolor} text-white p-2 rounded-md cursor-pointer hover:opacity-75 relative`}
               key={i}
+              onClick={() => { setStatus(elem.status) }}
             >
               {elem.title}
               <span
@@ -81,6 +97,7 @@ function Orders() {
               >
                 {elem.num}
               </span>
+
             </p>
           );
         })}
@@ -96,34 +113,40 @@ function Orders() {
           </div>
 
           {data &&
-            data.map((e, i) => (
-              <div
-                key={i}
-                className={`grid grid-cols-6 h-12 items-center justify-items-center border-transparent hover:border-slate-400 border-l-8 hover:bg-slate-100 ${active == e.oid ? "bg-slate-100 border-slate-400 " : "bg-transparent border-transparent"}`}
-                onClick={() => setActive(e.oid)}
-              >
-                <span className="hover:text-red-500 cursor-pointer">
-                  {i + 1}
-                </span>
-                <span className=" hover:text-red-500 cursor-pointer hover:font-semibold">
-                  #{e.sku}
-                </span>
-                <span className=" hover:text-red-500 cursor-pointer hover:font-semibold">
-                  {e.email}
-                </span>
-                <span
-                  className={`${e.status[3].completed
-                    ? "text-green-500 bg-green-200"
-                    : "text-red-500 bg-red-200"
-                    } p-1 text-sm rounded-md hover:opacity-80 cursor-pointer`}
+            data.filter(
+              (e) => {
+                return e.status[status].completed
+              }
+            ).map((e, i) => {
+              return (
+                <div
+                  key={i}
+                  className={`grid grid-cols-6 h-12 items-center justify-items-center border-transparent hover:border-slate-400 border-l-8 hover:bg-slate-100 ${active == e.oid ? "bg-slate-100 border-slate-400 " : "bg-transparent border-transparent"}`}
+                  onClick={() => setActive(e.oid)}
                 >
-                  {e.status[3].completed ? "Completed" : "Pending"}
-                </span>
-                <span className=" hover:text-red-500 cursor-pointer hover:font-semibold">
-                  {e.message}
-                </span>
-              </div>
-            ))}
+                  <span className="hover:text-red-500 cursor-pointer">
+                    {i + 1}
+                  </span>
+                  <span className=" hover:text-red-500 cursor-pointer hover:font-semibold">
+                    #{e.sku}
+                  </span>
+                  <span className=" hover:text-red-500 cursor-pointer hover:font-semibold">
+                    {e.email}
+                  </span>
+                  <span
+                    className={`${e.status[3].completed
+                      ? "text-green-500 bg-green-200"
+                      : "text-red-500 bg-red-200"
+                      } p-1 text-sm rounded-md hover:opacity-80 cursor-pointer`}
+                  >
+                    {e.status[3].completed ? "Completed" : "Pending"}
+                  </span>
+                  <span className=" hover:text-red-500 cursor-pointer hover:font-semibold">
+                    {e.message}
+                  </span>
+                </div>
+              )
+            })}
         </section>
         <section className={`w-3/12 h-auto bg-slate-100 rounded p-2 flex flex-col gap-1 ${active == null ? "hidden" : "visible"}`}>
           {data &&
@@ -136,8 +159,10 @@ function Orders() {
                         User Details
                       </h2>
                       <p>Email: {e.email}</p>
+                      <p> Phone: {e.phone} </p>
                       <p className="max-h-10 overflow-y-scroll">
-                        Address: {e.address}
+                        Shipping Address: {e.shipping_address} <br />
+                        Billing Address: {e.billing_address}
                       </p>
                     </div>
                     <div className="bg-slate-100 rounded p-1 text-sm  text-slate-600">

@@ -1,7 +1,6 @@
 import { fetchUser, getCookie } from "@/lib/Utils/Auth";
 import React, { useEffect, useState } from "react";
 import OrderDiv from "./OrderDiv";
-import { useAppContext } from "@/context/adminStore";
 
 const MyOrder = () => {
   const [products, setProducts] = useState([]);
