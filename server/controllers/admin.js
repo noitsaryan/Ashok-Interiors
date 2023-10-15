@@ -426,6 +426,73 @@ const getOrders = async (req, res) => {
   }
 };
 
+const updateProduct = async (req, res) => {
+  try {
+    const {
+      title,
+      category,
+      parentCategory,
+      description,
+      specification,
+      sku,
+      price,
+      productImages,
+    } = req.body;
+
+    await connectDB();
+
+    const productExists = await Product.findOne({ sku }).select("sku").exec();
+
+    if (!productExists.sku) {
+      return res.json({
+        success: false,
+        message: "Product does not exists",
+        errorCode: 403,
+      });
+    }
+    const result = await Product.updateOne(
+      { sku },
+      {
+        title,
+        category,
+        parentCategory,
+        description,
+        specification,
+        sku,
+        price,
+        productImages,
+      }
+    ).exec();
+
+    return res.json({
+      success: true,
+      message: result,
+    });
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+const deleteProduct = async (req, res) => {
+  try {
+    const { sku } = req.params;
+    await connectDB();
+    const response = await Product.findOneAndDelete({sku});
+    return res.json({
+      success: true, 
+      result: response
+    })
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   adminLogin,
   uploadImage,
@@ -435,4 +502,6 @@ module.exports = {
   fetchAllProducts,
   updateStatus,
   getOrders,
+  updateProduct,
+  deleteProduct,
 };

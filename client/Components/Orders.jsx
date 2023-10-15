@@ -47,8 +47,10 @@ function Orders() {
     const res = await fetchOrders();
     let array = res.data.orders;
     const reversed = array.reverse();
+    console.log(reversed)
     setData(reversed);
   }
+
   const updateStatus = async (process, oid, message, userEmail) => {
     const res = await axios.put("http://localhost:4000/api/status", {
       process,
@@ -65,7 +67,7 @@ function Orders() {
 
   return (
     <main className="w-full h-auto  p-2 flex  items-center justify-center flex-col">
-    
+
       <div className="w-3/4 grid grid-cols-4  font-semibold text-xl gap-4 text-center py-3">
         {statusDiv.map((elem, i) => {
           return (
@@ -87,16 +89,18 @@ function Orders() {
         <section className="flex flex-1 h-auto flex-col  overflow-y-scroll border rounded-lg shadow">
           <div className="grid grid-cols-6 items-center justify-items-center h-16 p-3  font-semibold bg-slate-100 border-slate-200 border-t border-b w-full">
             <p>No. </p>
-            <p>Product SKU</p> <p>Cutomer</p> <p>Product</p>
-            <p>Amount</p> <p>Status</p>
+            <p>Product SKU</p>
+            <p>User</p>
+            <p>Status</p>
+            <p>Message</p>
           </div>
 
           {data &&
             data.map((e, i) => (
               <div
                 key={i}
-                className={`grid grid-cols-6 h-12 items-center justify-items-center border-transparent hover:border-slate-400 border-l-8 hover:bg-slate-100 ${active==e.oid ? "bg-slate-100 border-slate-400 " : "bg-transparent border-transparent"}`}
-                onClick={()=>setActive(e.oid)}
+                className={`grid grid-cols-6 h-12 items-center justify-items-center border-transparent hover:border-slate-400 border-l-8 hover:bg-slate-100 ${active == e.oid ? "bg-slate-100 border-slate-400 " : "bg-transparent border-transparent"}`}
+                onClick={() => setActive(e.oid)}
               >
                 <span className="hover:text-red-500 cursor-pointer">
                   {i + 1}
@@ -104,26 +108,24 @@ function Orders() {
                 <span className=" hover:text-red-500 cursor-pointer hover:font-semibold">
                   #{e.sku}
                 </span>
-                <span className=" flex items-center justify-center gap-2">
-                  <PiUserCirclePlusThin className="text-2xl" /> Alex Smith
+                <span className=" hover:text-red-500 cursor-pointer hover:font-semibold">
+                  {e.email}
                 </span>
-                <span className="cursor-pointer" title="view product">
-                  Cupboard
-                </span>
-                <span>Rs.20000</span>
                 <span
-                  className={`${
-                    e.status[3].completed
-                      ? "text-green-500 bg-green-200"
-                      : "text-red-500 bg-red-200"
-                  } p-1 text-sm rounded-md hover:opacity-80 cursor-pointer`}
+                  className={`${e.status[3].completed
+                    ? "text-green-500 bg-green-200"
+                    : "text-red-500 bg-red-200"
+                    } p-1 text-sm rounded-md hover:opacity-80 cursor-pointer`}
                 >
                   {e.status[3].completed ? "Completed" : "Pending"}
+                </span>
+                <span className=" hover:text-red-500 cursor-pointer hover:font-semibold">
+                  {e.message}
                 </span>
               </div>
             ))}
         </section>
-        <section className={`w-3/12 h-auto bg-slate-100 rounded p-2 flex flex-col gap-1 ${active==null ? "hidden" : "visible"}`}>
+        <section className={`w-3/12 h-auto bg-slate-100 rounded p-2 flex flex-col gap-1 ${active == null ? "hidden" : "visible"}`}>
           {data &&
             data.map((e, i) => {
               if (e.oid === active) {
@@ -177,11 +179,10 @@ function Orders() {
                               className="border w-4/6 rounded-md"
                             />
                             <button
-                              className={`${
-                                e.status[1].completed
-                                  ? "text-green-500 bg-green-200"
-                                  : "text-red-500 bg-red-200"
-                              } p-1 text-sm rounded-md hover:opacity-80 cursor-pointer`}
+                              className={`${e.status[1].completed
+                                ? "text-green-500 bg-green-200"
+                                : "text-red-500 bg-red-200"
+                                } p-1 text-sm rounded-md hover:opacity-80 cursor-pointer`}
                               onClick={() => {
                                 updateStatus(
                                   "production",
@@ -219,11 +220,29 @@ function Orders() {
                               className="border w-4/6 rounded-md"
                             />
                             <button
-                              className={`${
-                                e.status[2].completed
-                                  ? "text-green-500 bg-green-200"
-                                  : "text-red-500 bg-red-200"
-                              } p-1 text-sm rounded-md hover:opacity-80 cursor-pointer`}
+                              onClick={() => {
+                                updateStatus(
+                                  "shipping",
+                                  e.oid,
+                                  shipping,
+                                  e.email
+                                );
+                                toast.success("Updated Status Successfully!", {
+                                  position: "top-right",
+                                  autoClose: 5000,
+                                  hideProgressBar: false,
+                                  closeOnClick: true,
+                                  pauseOnHover: true,
+                                  draggable: false,
+                                  progress: undefined,
+                                  theme: "colored",
+                                });
+                                location.reload();
+                              }}
+                              className={`${e.status[2].completed
+                                ? "text-green-500 bg-green-200"
+                                : "text-red-500 bg-red-200"
+                                } p-1 text-sm rounded-md hover:opacity-80 cursor-pointer`}
                             >
                               {e.status[2].completed ? "Done" : "Not Done"}
                             </button>
@@ -261,11 +280,10 @@ function Orders() {
                                 });
                                 location.reload();
                               }}
-                              className={`${
-                                e.status[3].completed
-                                  ? "text-green-500 bg-green-200"
-                                  : "text-red-500 bg-red-200"
-                              } p-1 text-sm rounded-md hover:opacity-80 cursor-pointer`}
+                              className={`${e.status[3].completed
+                                ? "text-green-500 bg-green-200"
+                                : "text-red-500 bg-red-200"
+                                } p-1 text-sm rounded-md hover:opacity-80 cursor-pointer`}
                             >
                               {e.status[3].completed ? "Done" : "Not Done"}
                             </button>

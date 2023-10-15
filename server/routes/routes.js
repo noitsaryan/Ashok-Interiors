@@ -7,6 +7,8 @@ const {
   fetchAllProducts,
   updateStatus,
   getOrders,
+  updateProduct,
+  deleteProduct
 } = require("../controllers/admin");
 
 const {
@@ -28,11 +30,13 @@ const router = require("express").Router();
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-
+// Delete Requests
+router.route('/delete/:sku').delete(deleteProduct)
 // Put Requests
 router.route('/status').put(updateStatus)
 router.route('/user/:updateType').put(updateUser)
 router.route('/cart/:type').put(cartManagement)
+router.route('/product/update').put(updateProduct)
 // Post Requests
 router.route("/admin-login").post(adminLogin);
 router.route("/uploadImage").post(upload.array("images", 10), uploadImage);

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { fetchById } from "@/lib/Utils/Panel";
 import { ToastContainer, toast } from "react-toastify";
+import Image from "next/image";
 
 export default function page({ params }) {
   const [email, setEmail] = useState("");
@@ -373,7 +374,13 @@ export default function page({ params }) {
         <section className="md:w-3/12 h-full p-2 w-full bg-slate-100 rounded-md border border-slate-400 shadow py-5">
           <h2 className="font-semibold text-xl">Order Summary</h2>
           <div>
-            <div className="w-full h-72 bg-white shadow rounded mt-2 bg-[url('/img/hero-pattern.svg')]">{data.productImages[0]}
+            <div className="w-full h-72 bg-white shadow rounded mt-2 bg-[url('/img/hero-pattern.svg')]">
+              <Image
+                src={`http://localhost:4000/ProductImages/${data && data.productImages[1]}`}
+                width={150}
+                height={150}
+                className="object-contain"
+              />
         
             </div>
             <span className="flex gap-2  mt-3">
@@ -382,16 +389,12 @@ export default function page({ params }) {
             </span>
             <span className="flex gap-2">
               <h3 className=" font-semibold text-red-400">Subtotal:</h3>{" "}
-              <p className="opacity-75">{data.price * value}</p>
-            </span>
-            <span className="flex gap-2">
-              <h3 className=" font-semibold text-red-400">Service Fee:</h3>{" "}
-              <p className="opacity-75">12</p>
+              <p className="opacity-75">Rs. {data.price * value}</p>
             </span>
             <hr />
             <span className="flex gap-2">
               <h3 className=" font-semibold text-red-400">Total:</h3>{" "}
-              <p className="opacity-75">{data.price * value + 12}</p>
+              <p className="opacity-75">Rs. {data.price * value}</p>
             </span>
           </div>
         </section>

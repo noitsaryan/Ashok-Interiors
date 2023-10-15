@@ -1,10 +1,10 @@
 import { fetchUser, getCookie } from "@/lib/Utils/Auth";
 import React, { useEffect, useState } from "react";
 import OrderDiv from "./OrderDiv";
+import { useAppContext } from "@/context/adminStore";
 
 const MyOrder = () => {
   const [products, setProducts] = useState([]);
-
   const getOrder = async () => {
     const res = await getCookie();
     const email = res.data.value.email;
@@ -19,7 +19,7 @@ const MyOrder = () => {
   return (
     <section className="flex flex-col gap-4">
       {products.map((e, i) => (
-        <OrderDiv key={i} sku={e.sku} status={products.status} />
+        <OrderDiv key={i} sku={e.sku} order={products} />
       ))}
     </section>
   );

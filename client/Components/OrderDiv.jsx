@@ -1,4 +1,5 @@
 "use client"
+import { useAppContext } from "@/context/adminStore";
 import { fetchById } from "@/lib/Utils/Panel";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -6,27 +7,29 @@ import { FaCircleDot } from "react-icons/fa6";
 import { RiArrowDownSLine, RiArticleLine, RiBox2Line, RiListCheck3, RiTruckLine } from "react-icons/ri";
 
 
-const OrderDiv = ({ sku, status }) => {
+const OrderDiv = ({ sku, order }) => {
     const [product, setProduct] = useState(null);
     const fetchProduct = async () => {
         const res = await fetchById(sku);
         setProduct(res.data.data);
-        console.log(res.data)
     };
 
     useEffect(() => {
         fetchProduct();
     }, [sku]);
+    useEffect(() => {
+        console.log(order)
+    }, [order])
     const [trackOrders, setTrackOrders] = useState(true)
     return (
         <section className=" w-full shadow-md bg-slate-100">
             <div className="relative w-full h-24 flex items-center justify-between p-3 ">
                 <div>
                     <p className="opacity-70 text-sm font-semibold">SKU: #{product && product.sku}</p>
-                    <h1 className="text-2xl font-semibold">{product &&product.title}</h1>
+                    <h1 className="text-2xl font-semibold">{product && product.title}</h1>
                 </div>
                 <div className="aspect-video h-full overflow-hidden">
-            <Image src={`http:localhost:4000/ProductImages/${product && product.productImages[0]}`} width={300} height={300} alt="image"/>
+                    <Image src={`http:localhost:4000/ProductImages/${product && product.productImages[0]}`} width={300} height={300} alt="image" />
                 </div>
             </div>
             <div className="w-full h-auto overflow-x-hidden">
