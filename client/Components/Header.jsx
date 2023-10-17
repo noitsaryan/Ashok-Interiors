@@ -27,7 +27,6 @@ function Header() {
     { name: "Shop", href: "/shop" },
     { name: "Project", href: "/project" },
     { name: "Workshop", href: "workshop" },
-    { name: "Services", href: "/services" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" }
   ];
