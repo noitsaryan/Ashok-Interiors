@@ -40,7 +40,7 @@ const Page = () => {
       CtgName: "Studio",
       ImgTxt: [
         {
-          studioName: "Lambodara",
+          studioName: "Lambodara Studios- Shankar Mahadevan",
           stdImg: [
             "/LambodaraStd/20200313_123953.webp",
             "/LambodaraStd/20200313_124001.webp",
@@ -51,7 +51,7 @@ const Page = () => {
           ],
         },
         {
-          studioName: "Shankar Mahadevan",
+          studioName: "Shankar Mahadevan Home Theatre",
           stdImg: [
             "/shankar mahadevan/1697544403-xiTzZ64SQfaX.webp",
             "/shankar mahadevan/1697544404-4PtxaIox4Kv0.webp",
@@ -61,7 +61,7 @@ const Page = () => {
         },
        
         {
-          studioName: "Sound and Studios",
+          studioName: " Sound and Vision Studios",
           stdImg: [
             "/sound and studios/Screenshot_20230709_231132_Instagram.webp",
             "/sound and studios/Screenshot_20230709_231225_Instagram.webp",
@@ -75,7 +75,7 @@ const Page = () => {
           ],
         },
         {
-          studioName: "Subhash Studio",
+          studioName: "Subhash Studios",
           stdImg: [
             "/subhashStd/IMG_1754.webp",
             "/subhashStd/IMG_1758.webp",
@@ -94,7 +94,7 @@ const Page = () => {
           ],
         },
         {
-          studioName: "Canopy Studios",
+          studioName: "Canopy Media",
           stdImg: [
             "/canopyStd/1a2e7e06-fcb2-4f57-b976-cea1556d5667.webp",
             "/canopyStd/3e22baad-ae96-402d-9e32-d57dda04e314.webp",
@@ -109,7 +109,7 @@ const Page = () => {
           ],
         },
         {
-          studioName: "Island City",
+          studioName: "Island City Studios",
           stdImg: [
             "/IslandCity/b13ee9_0c36118e4a5b41fe85389c1c989920dd~mv2.webp",
             "/IslandCity/b13ee9_7b7c3274a59d4237a1bfeef977a36a13~mv2.webp",

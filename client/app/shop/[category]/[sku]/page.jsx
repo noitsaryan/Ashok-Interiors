@@ -1,47 +1,48 @@
-'use client'
+"use client";
 
-import Image from "next/image"
-import { useEffect, useRef, useState } from "react"
-import Product from "@/Components/Product"
-import Link from "next/link"
-import { fetchByCategory, fetchById } from "@/lib/Utils/Panel"
-import { PinCode } from "@/lib/Utils/PinCode"
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
-import { addCart, getCookie } from "@/lib/Utils/Auth"
-import { useAppContext } from "@/context/adminStore"
-import { useRouter } from "next/navigation"
-
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import Product from "@/Components/Product";
+import Link from "next/link";
+import { fetchByCategory, fetchById } from "@/lib/Utils/Panel";
+import { PinCode } from "@/lib/Utils/PinCode";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { addCart, getCookie } from "@/lib/Utils/Auth";
+import { useAppContext } from "@/context/adminStore";
+import { useRouter } from "next/navigation";
+import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
 
 function page({ params }) {
-  const {value, setValue} = useAppContext()
+  const { value, setValue } = useAppContext();
   const [data, setData] = useState({
-    productImages: []
-  })
-  const [expand, setExpand] = useState(false)
-  const [pinCode, setpinCode] = useState('Pin Code')
-  const [image, setImage] = useState()
-  const [email, setEmail] = useState()
-  const [related, setRelated] = useState([])
-  const [switchDiv, setSwitchDiv] = useState(Boolean)
-  const [pinInput, setPinInput] = useState('')
-  const [load, setLoad] = useState(true)
+    productImages: [],
+  });
+  const [expand, setExpand] = useState(false);
+  const [pinCode, setpinCode] = useState("Pin Code");
+  const [image, setImage] = useState([]);
+  const [email, setEmail] = useState();
+  const [related, setRelated] = useState([]);
+  const [switchDiv, setSwitchDiv] = useState(Boolean);
+  const [pinInput, setPinInput] = useState("");
+  const [load, setLoad] = useState(true);
   const { productImages } = data;
   const { sku } = params;
   const { category } = params;
-  const route = useRouter(null)
-
+  const route = useRouter(null);
+  const [imageNo, setImageNo] = useState(0);
 
   const fetchProduct = async () => {
     const result = await fetchById(sku);
     setData(result.data.data);
-    setImage(result.data.data.productImages?.[0]);
+
+    setImage([...new Set(result.data.data.productImages)]);
   };
 
   const getProducts = async () => {
-    const data = await fetchByCategory(category)
-    setRelated(data.data.data)
-  }
+    const data = await fetchByCategory(category);
+    setRelated(data.data.data);
+  };
 
   const fetchPin = async (e) => {
     const res = await PinCode(pinInput);
@@ -82,18 +83,17 @@ function page({ params }) {
     }
   };
 
-
   const fetchUserData = async () => {
     const res = await getCookie();
-    setEmail(res.data.value.email)
-    return res
-  }
+    setEmail(res.data.value.email);
+    return res;
+  };
 
   useEffect(() => {
     fetchProduct();
     getProducts();
-    fetchUserData()
-  }, [])
+    fetchUserData();
+  }, []);
 
   setTimeout(() => {
     setLoad(false);
@@ -143,7 +143,7 @@ function page({ params }) {
       ) : (
         <section className="flex flex-col md:items-start items-center mx-auto justify-center my-8 md:px-10 md:flex-row">
           <div className="flex flex-col items-center p-5 bg-white rounded-md  ">
-            <div>
+            <div className="relative">
               <div className="text-sm text-left font-normal text-slate-400 my-2">
                 <Link href={`/shop`} className="hover:text-slate-600">
                   /shop/
@@ -161,22 +161,36 @@ function page({ params }) {
                 height={500}
                 alt="Product Image"
                 className="max-w-2xl object-contain max-h-min"
-                src={`http://localhost:4000/ProductImages/${image}`}
+                src={`http://localhost:4000/ProductImages/${image[imageNo]}`}
               />
-            </div>
-            <div className="flex items-center space-x-5 overflow-y-hidden max-h-16 p-2 rounded-md my-2">
-              {productImages &&
-                productImages.map((e, i) => (
-                  <Image
-                    width={150}
-                    height={150}
-                    alt="Product Image"
-                    key={i}
-                    className=" w-[80px] filter hover:grayscale  cursor-pointer transition-all"
-                    onClick={() => setImage(e)}
-                    src={`http://localhost:4000/ProductImages/${e}`}
-                  />
+              <div className="absolute bottom-1/2 right-0 left-0 flex items-center justify-between px-3 text-4xl text-white drop-shadow-m font-semibold -translate-x-1">
+                <RiArrowLeftSLine
+                  className="cursor-pointer"
+                  onClick={() => setImageNo(imageNo === 0 ? 0 : imageNo - 1)}
+                />
+                <RiArrowRightSLine
+                  className="cursor-pointer"
+                  onClick={() =>
+                    setImageNo(imageNo === image.length - 1 ? 0 : imageNo + 1)
+                  }
+                />
+              </div>
+
+              <div className="flex items-center space-x-5 overflow-y-hidden max-h-16 p-2 rounded-md my-2">
+                {image.map((e, i) => (
+                  <>
+                    <Image
+                      width={150}
+                      height={150}
+                      alt="Product Image"
+                      key={i}
+                      className=" w-[80px] filter hover:grayscale  cursor-pointer transition-all"
+                      onClick={() => setImageNo(i)}
+                      src={`http://localhost:4000/ProductImages/${e}`}
+                    />
+                  </>
                 ))}
+              </div>
             </div>
           </div>
           <div className="md:w-1/2 pb-4 md:pb-0 md:py-8">
@@ -192,17 +206,37 @@ function page({ params }) {
               )}
             </div>
             <div className="px-4 py-4 h-auto flex flex-col items-start gap-2 w-full ">
-              <span className="text-gray-400 flex gap-4 items-center justify-center"><button className={`border-Secondary ${switchDiv ? "border-b-0" : "border-b-2"}`}onClick={()=>setSwitchDiv(false)}>Description</button> <button className={`border-Secondary ${switchDiv ? "border-b-2" : "border-b-0"}`} onClick={()=>setSwitchDiv(true)}>Specifications</button></span>
+              <span className="text-gray-400 flex gap-4 items-center justify-center">
+                <button
+                  className={`border-Secondary ${
+                    switchDiv ? "border-b-0" : "border-b-2"
+                  }`}
+                  onClick={() => setSwitchDiv(false)}
+                >
+                  Description
+                </button>{" "}
+                <button
+                  className={`border-Secondary ${
+                    switchDiv ? "border-b-2" : "border-b-0"
+                  }`}
+                  onClick={() => setSwitchDiv(true)}
+                >
+                  Specifications
+                </button>
+              </span>
 
               <div
                 className={`text-left text-sm max-w-md ${
                   expand ? "overflow-visible h-auto" : "overflow-hidden"
                 } ${switchDiv ? "hidden" : "visible"} h-6`}
-                
               >
                 <p> {data.description}</p>
               </div>
-              <div className={`text-left w-full flex flex-col gap-2 text-sm ${switchDiv ? "visible" : "hidden"}`}>
+              <div
+                className={`text-left w-full flex flex-col gap-2 text-sm ${
+                  switchDiv ? "visible" : "hidden"
+                }`}
+              >
                 <p>Unit (U):{data.specification.unit}</p>
                 <p>Size: {data.specification.size}</p>
                 <p>Color: {data.specification.color} </p>
@@ -264,33 +298,44 @@ function page({ params }) {
             </div>
 
             <div className=" md:flex md:flex-row space-y-1 md:space-y-0 flex-col px-4 items-center">
-              <button className="w-full md:w-auto text-lg font-medium bg-Secondary px-5 mx-1 rounded-sm hover:opacity-80 text-white py-2 " onClick={() => route.push(`/checkout/${sku}`)} > Buy now</button>
-              <button className=" w-full md:w-auto  text-lg font-medium  px-4 mx-1 text-Secondary ring-1 ring-inset ring-Secondary py-2 rounded-sm hover:opacity-80 " onClick={async () => {
-                if (!email) {
-                  toast.info('Please log in to continue!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: false,
-                    progress: undefined,
-                    theme: "light",
-                  })
-                } else {
-                  await addCart(email, sku)
-                  toast.info('Added to cart!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: false,
-                    progress: undefined,
-                    theme: "light",
-                  })
-                }
-              }} >Add to cart</button>
+              <button
+                className="w-full md:w-auto text-lg font-medium bg-Secondary px-5 mx-1 rounded-sm hover:opacity-80 text-white py-2 "
+                onClick={() => route.push(`/checkout/${sku}`)}
+              >
+                {" "}
+                Buy now
+              </button>
+              <button
+                className=" w-full md:w-auto  text-lg font-medium  px-4 mx-1 text-Secondary ring-1 ring-inset ring-Secondary py-2 rounded-sm hover:opacity-80 "
+                onClick={async () => {
+                  if (!email) {
+                    toast.info("Please log in to continue!", {
+                      position: "top-right",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: false,
+                      progress: undefined,
+                      theme: "light",
+                    });
+                  } else {
+                    await addCart(email, sku);
+                    toast.info("Added to cart!", {
+                      position: "top-right",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: false,
+                      progress: undefined,
+                      theme: "light",
+                    });
+                  }
+                }}
+              >
+                Add to cart
+              </button>
             </div>
           </div>
         </section>
