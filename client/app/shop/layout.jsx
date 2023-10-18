@@ -1,9 +1,8 @@
 'use client'
 import { useAppContext } from "@/context/adminStore";
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
-import { useState } from "react";
-import { RiArrowDropLeftLine, RiArrowDropRightLine, RiShoppingCartLine } from "react-icons/ri";
+import { usePathname } from "next/navigation";
+import {  RiShoppingCartLine } from "react-icons/ri";
 
 export default function RootLayout({ children }) {
     const location = usePathname('/shop')

@@ -33,7 +33,6 @@ const RegisterSchema = new Schema({
       oid: String,
       payment: Object,
       status: Array,
-      message: String,
       sku: String,
       quantity: Number,
       completed: Boolean,

@@ -72,11 +72,16 @@ export default function page() {
 
   return (
     <main className="HomeMain">
-      <div className="w-full border-t border-b h-9 flex gap-3 items-center justify-center"><Link href="/"  className="border-r border-Secondary px-3 hover:text-Secondary">Residential</Link><Link href="/"  className="border-r border-Secondary px-3 hover:text-Secondary">Commercial</Link><Link href="/" className="hover:text-Secondary ">Studio</Link></div>
+      <div className="w-full flex gap-8 pb-3 items-center justify-center">
+        <p className="text-[16px] font-semibold border-Secondary">FURNITURE</p>
+        <p className="text-[16px] font-semibold border-Secondary">CONTRACTORS</p>
+        <p className="text-[16px] font-semibold">INTERIORS</p>
+        <p className="text-[16px] font-semibold">ACOUSTICS</p>
+      </div>
       <div className="w-full px-2 h-[450px] md:h-[550px] flex gap-2">
         <div className=" w-full  md:w-3/4 h-full">
           <Swiper
-            modules={[Autoplay,EffectFade, Pagination, Navigation]}
+            modules={[Autoplay, EffectFade, Pagination, Navigation]}
             pagination={{ clickable: true }}
             className="w-full h-full"
             effect={'fade'}
@@ -172,7 +177,7 @@ export default function page() {
         </div>
       </div>
 
-      <section className=" ">
+      <section className="my-6">
         <div className="flex items-center justify-evenly">
           <div className=" md:w-[200px] md:h-[200px] lg:w-[250px] lg:h-[250px] w-[100px] h-[100px]  ">
             <Link href='/shop/residence'>
@@ -231,12 +236,12 @@ export default function page() {
               spaceBetween: 20,
             },
             "@1.00": {
-              slidesPerView: 3,
-              spaceBetween: 40,
+              slidesPerView: 2,
+              spaceBetween: 10,
             },
             "@1.50": {
               slidesPerView: 4,
-              spaceBetween: 50,
+              spaceBetween: 10,
             },
           }}
         >
@@ -250,7 +255,7 @@ export default function page() {
                     sku={e.sku}
                     price={e.price}
                     category={e.parentCategory}
-                    
+
                   />
                 </SwiperSlide>
               ) : null;
@@ -261,12 +266,12 @@ export default function page() {
       <CtaButton
         btnTxt="SHOP NOW"
         btnLink="/shop"
+        styles='mx-auto'
         btnIcon={RiArrowRightLine}
-
       />
       <section className="flex md:flex-col items-center px-8" >
-      <h2 className="text-3xl my-4 underline underline-offset-2 ">Residential</h2>
-        
+        <h2 className="text-3xl my-4 underline underline-offset-2 ">Residential</h2>
+
         <Swiper
           modules={[Autoplay, Pagination]}
           pagination={{ clickable: true }}
@@ -298,7 +303,7 @@ export default function page() {
             },
           }}
         >
-         
+
 
           {
             Residence.map((e, i) => {
@@ -347,7 +352,7 @@ export default function page() {
             },
           }}
         >
-        
+
 
           {
             Commercial.map((e, i) => {
@@ -363,7 +368,7 @@ export default function page() {
             })
           }
         </Swiper>
-      <h2 className="text-3xl my-4 underline underline-offset-2 ">Studio</h2>
+        <h2 className="text-3xl my-4 underline underline-offset-2 ">Studio</h2>
 
         <Swiper
           modules={[Autoplay, Pagination]}
@@ -396,7 +401,7 @@ export default function page() {
             },
           }}
         >
-      
+
           {
             Studio.map((e, i) => {
               return <SwiperSlide key={i} className="h-full w-full">

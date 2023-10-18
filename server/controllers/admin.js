@@ -245,160 +245,67 @@ const updateStatus = async (req, res) => {
       });
     }
     await connectDB();
-    if (process == "production") {
-      const newStatusArray = [
-        {
-          step_1: "Created Order",
-          completed: true,
-        },
-        {
-          step_2: "In Production",
-          completed: true,
-        },
-        {
-          step_3: "In Shipping",
-          completed: false,
-        },
-        {
-          step_4: "Delivered",
-          completed: false,
-        },
-      ];
-      const result = await Admin.findOneAndUpdate(
-        {
-          email: "dev.ashokinteriors@gmail.com",
-          "orders.oid": oid,
-        },
-        {
-          $set: {
-            "orders.$.status": newStatusArray,
-            "orders.$.message": message,
-          },
-        },
-        { new: true }
-      );
-      const user = await Register.findOneAndUpdate(
-        {
-          email: userEmail,
-          "order.oid": oid,
-        },
-        {
-          $set: {
-            "order.$.status": newStatusArray,
-            "order.$.message": message,
-          },
-        },
-        { new: true }
-      );
-      return res.json({
-        success: true,
-        result,
-        user,
-      });
-    } else if (process == "shipping") {
-      const newStatusArray = [
-        {
-          step_1: "Created Order",
-          completed: true,
-        },
-        {
-          step_2: "In Production",
-          completed: true,
-        },
-        {
-          step_3: "In Shipping",
-          completed: true,
-        },
-        {
-          step_4: "Delivered",
-          completed: false,
-        },
-      ];
-      const result = await Admin.findOneAndUpdate(
-        {
-          email: "dev.ashokinteriors@gmail.com",
-          "orders.oid": oid,
-        },
-        {
-          $set: {
-            "orders.$.status": newStatusArray,
-            "orders.$.message": message,
-          },
-        },
-        { new: true }
-      );
 
-      const user = await Register.findOneAndUpdate(
-        {
-          email: userEmail,
-          "order.oid": oid,
-        },
-        {
-          $set: {
-            "order.$.status": newStatusArray,
-            "order.$.message": message,
-          },
-        },
-        { new: true }
-      );
+    // Define the filter to match the document
+    const filter = {
+      email: `dev.ashokinteriors@gmail.com`,
+      "orders.oid": oid,
+      "orders.status.step": process,
+    };
 
+    // Define the update to set the "message" and "completed" fields
+    const update = {
+      $set: {
+        "orders.$[outer].status.$[inner].message": message,
+        "orders.$[outer].status.$[inner].completed": true,
+        "orders.$[outer].completed": process === "delivered" ? true : false,
+      },
+    };
+
+    // Define the arrayFilters to match the specific elements
+    const arrayFilters = [{ "outer.oid": oid }, { "inner.step": process }];
+
+    // Use findOneAndUpdate with the filter, update, and arrayFilters
+    const result = await Admin.findOneAndUpdate(filter, update, {
+      new: true,
+      arrayFilters,
+    });
+
+    const userFilter = {
+      email: userEmail,
+      "order.oid": oid,
+      "order.status.step": process,
+    };
+
+    // Define the update for the user
+    const userUpdate = {
+      $set: {
+        "order.$[outer].status.$[inner].message": message,
+        "order.$[outer].status.$[inner].completed": true,
+      },
+    };
+
+    // Define the arrayFilters for the user
+    const userArrayFilters = [{ "outer.oid": oid }, { "inner.step": process }];
+
+    // Use findOneAndUpdate for the user
+    const user = await Register.findOneAndUpdate(userFilter, userUpdate, {
+      new: true,
+      arrayFilters: userArrayFilters,
+    });
+
+    if (!result) {
       return res.json({
-        success: true,
-        result,
-        user,
-      });
-    } else if (process == "delivered") {
-      const newStatusArray = [
-        {
-          step_1: "Created Order",
-          completed: true,
-        },
-        {
-          step_2: "In Production",
-          completed: true,
-        },
-        {
-          step_3: "In Shipping",
-          completed: true,
-        },
-        {
-          step_4: "Delivered",
-          completed: true,
-        },
-      ];
-      const result = await Admin.findOneAndUpdate(
-        {
-          email: "dev.ashokinteriors@gmail.com",
-          "orders.oid": oid,
-        },
-        {
-          $set: {
-            "orders.$.status": newStatusArray,
-            "orders.$.message": message,
-            "orders.$.completed": true,
-          },
-        },
-        { new: true }
-      );
-      const user = await Register.findOneAndUpdate(
-        {
-          email: userEmail,
-          "order.oid": oid,
-        },
-        {
-          $set: {
-            "order.$.status": newStatusArray,
-            "order.$.message": message,
-          },
-        },
-        { new: true }
-      );
-      return res.json({
-        success: true,
-        result,
-        user,
+        success: false,
+        message: `Document not found for email: ${userEmail} and oid: ${oid}, or status not found for process: ${process}`,
       });
     }
+
+    return res.json({
+      success: true,
+      message: `Status updated for process: ${process}`,
+      user,
+    });
   } catch (error) {
     return res.json({
       success: false,
@@ -480,11 +387,11 @@ const deleteProduct = async (req, res) => {
   try {
     const { sku } = req.params;
     await connectDB();
-    const response = await Product.findOneAndDelete({sku});
+    const response = await Product.findOneAndDelete({ sku });
     return res.json({
-      success: true, 
-      result: response
-    })
+      success: true,
+      result: response,
+    });
   } catch (error) {
     return res.json({
       success: false,

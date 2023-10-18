@@ -10,12 +10,13 @@ import Image from "next/image";
 
 export default function page({ params }) {
   const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
   const [value, setValue] = useState(1);
-  const [shipping_address, setShipping_Address] = useState("test");
-  const [billing_address, setBilling_Address] = useState("test");
-  const [phone, setPhone] = useState(9372103699);
+  const [address, setAddress] = useState(String)
+  const [shipping_address, setShipping_Address] = useState(String);
+  const [billing_address, setBilling_Address] = useState(String);
+  const [phone, setPhone] = useState(Number);
   const [check, setCheck] = useState(false);
+  const [gstin, setGstin] = useState(Number);
   const [address1, setaddress1] = useState({
     strtName: "",
     bldgName: "",
@@ -130,7 +131,6 @@ export default function page({ params }) {
             theme: "colored",
           });
         }
-        // route.push('/successful')
       },
     };
 
@@ -175,7 +175,7 @@ export default function page({ params }) {
 
   let shipngAddress = `Street Name: ${address1.strtName}, Building Name / Flat No: ${address1.bldgName}, Landmark: ${address1.Landmark}, Pincode: ${address1.zipcode}`;
 
-  let bilgAddress = `Street Name: ${address2.strtName}, Building Name / Flat No: ${address2.bldgName}, Landmark: ${address2.Landmark}, Pincode: ${address2.zipcode}`;
+  let bilgAddress = `Street Name: ${address2.strtName}, Building Name / Flat No: ${address2.bldgName}, Landmark: ${address2.Landmark}, Pincode: ${address2.zipcode}, GSTIN No. : ${gstin}`;
 
   const ProceedChk = () => {
     setShipping_Address(shipngAddress);
@@ -301,6 +301,20 @@ export default function page({ params }) {
                   onChange={BillAdress}
                 />
               </span>
+              <span className="flex flex-col gap-1">
+                Have GSTIN?
+                <input
+                  type="text"
+                  placeholder="Enter GSTIN"
+                  required
+                  name="gstin"
+                  value={gstin}
+                  className="p-1 rounded"
+                  onChange={(e) => {
+                    setGstin(e.target.value)
+                  }}
+                />
+              </span>
             </div>
             <span className="mt-2 font-semibold text-xs opacity-70 flex items-center  gap-2">
               <input
@@ -376,10 +390,11 @@ export default function page({ params }) {
           <div>
             <div className="w-full h-72 bg-white shadow rounded mt-2 bg-[url('/img/hero-pattern.svg')]">
               <Image
-                src={`http://localhost:4000/ProductImages/${data && data.productImages[1]}`}
+                src={`http://localhost:4000/ProductImages/${data && data.productImages[0]}`}
                 width={150}
                 height={150}
                 className="object-contain"
+                alt="image"
               />
         
             </div>

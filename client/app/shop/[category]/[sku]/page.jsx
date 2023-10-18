@@ -342,7 +342,7 @@ function page({ params }) {
       )}
       <section className="mx-auto">
         <h1 className="text-center text-2xl font-bold">Related Products</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center gap-6 px-4 md:px-8 mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center gap-3 px-3 md:px-8 mx-auto">
           {related &&
             related.map((e, i) => {
               return i < 6 ? (
