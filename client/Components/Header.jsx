@@ -78,7 +78,7 @@ function Header() {
           width={690}
           height={362}
           priority={true}
-          className="w-28 md:w-32 select-none cursor-pointer"
+          className="w-28 md:w-36 select-none cursor-pointer"
         />
       </Link>
       <div className="w-2/6 border hidden md:flex border-slate-300 p-1 px-2 rounded-full  items-center justify-between gap-3 relative">
@@ -147,7 +147,7 @@ function Header() {
             className={`subMenu border-b-2 border-transparent hover:border-b-2 ${location == e.href ? 'border-b-Secondary' : 'border-b-transparent'} hover:border-b-Secondary transition-all relative`}
           >
             {e.name.toUpperCase()}
-            <div className="subMenudiv w-32 absolute rounded shadow-md p-2 flex flex-col">
+            <div className="subMenudiv w-32 absolute z-50 rounded shadow-md p-2 flex flex-col">
               <p onClick={() => window.location.href = '/shop/residence'}>Residential</p>
               <p onClick={() => window.location.href = '/shop/commercial'}>Commercial</p>
               <p onClick={() => window.location.href = '/shop/studio'}>Studio</p>

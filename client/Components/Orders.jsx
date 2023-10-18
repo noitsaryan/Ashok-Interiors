@@ -61,6 +61,7 @@ function Orders() {
     let array = res.data.orders;
     const reversed = array.reverse();
     setData(reversed);
+    console.log(reversed)
   }
 
   const updateStatus = async (process, oid, message, userEmail) => {
@@ -141,9 +142,7 @@ function Orders() {
                   >
                     {e.status[3].completed ? "Completed" : "Pending"}
                   </span>
-                  <span className=" hover:text-red-500 cursor-pointer hover:font-semibold">
-                    {e.message}
-                  </span>
+
                 </div>
               )
             })}
@@ -186,10 +185,6 @@ function Orders() {
                       <h1 className="font-semibold text-blue-600 bg-blue-300 p-1 rounded my-1">
                         Status Update
                       </h1>
-                      <p className="opacity-75 text-green-500 mb-2">
-                        Current message: {e.message}
-                      </p>
-
                       <div className="flex flex-col gap-2">
                         <div>
                           <h3 className="text-yellow-500 font-semibold">
@@ -200,6 +195,7 @@ function Orders() {
                               type="text"
                               name=""
                               id=""
+                              placeholder={ `${e.status[1].message}` }
                               onChange={(e) => setProduction(e.target.value)}
                               className="border w-4/6 rounded-md"
                             />
@@ -241,6 +237,7 @@ function Orders() {
                               type="text"
                               name=""
                               id=""
+                              placeholder={ e.status[2].message }
                               onChange={(e) => setShipping(e.target.value)}
                               className="border w-4/6 rounded-md"
                             />
@@ -282,6 +279,7 @@ function Orders() {
                               type="text"
                               name=""
                               id=""
+                              placeholder={ e.status[3].message }
                               onChange={(e) => setDelivered(e.target.value)}
                               className="border w-4/6 rounded-md"
                             />

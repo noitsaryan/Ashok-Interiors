@@ -248,7 +248,7 @@ const newOrder = async (req, res) => {
       s_address,
       b_address,
       phoneNo,
-      email
+      email,
     } = req.body;
     if (
       !oid ||
@@ -270,25 +270,28 @@ const newOrder = async (req, res) => {
       payment,
       status: [
         {
-          step_1: "Created Order",
+          step: "Created Order",
           completed: true,
+          message: `Created Order for Id: ${sku} @ ${new Date(
+            Date.now()
+          ).toISOString()}!`,
         },
         {
-          step_2: "In Production",
+          step: "production",
           completed: false,
+          message: ''
         },
         {
-          step_3: "In Shipping",
+          step: "shipping",
           completed: false,
+          message: ''
         },
         {
-          step_4: "Delivered",
+          step: "delivered",
           completed: false,
+          message: ''
         },
       ],
-      message: `Created Order for Id: ${sku} @ ${new Date(
-        Date.now()
-      ).toISOString()}!`,
       sku,
       quantity,
       shipping_address: s_address,
@@ -310,10 +313,10 @@ const newOrder = async (req, res) => {
         message: "User not found or no changes made",
       });
     }
-    
+
     const newObject = {
       ...orderObject,
-      email
+      email,
     };
 
     const admin = await Admin.updateOne(
@@ -330,11 +333,13 @@ const newOrder = async (req, res) => {
     return res.json({
       success: true,
       message: `Successfully added order!`,
+      data: newObject
     });
   } catch (error) {
     return res.json({
       success: false,
       message: error.message,
+
     });
   }
 };

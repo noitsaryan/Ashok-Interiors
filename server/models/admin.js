@@ -18,7 +18,6 @@ const AdminSchema = new Schema({
       oid: String,
       payment: Object,
       status: Array,
-      message: String,
       sku: String,
       completed: Boolean,
       email: String,

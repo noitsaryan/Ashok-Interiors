@@ -28,7 +28,7 @@ const page = () => {
   };
   return (
     <>
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center gap-6 px-4 md:px-8">
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center gap-3 p-3">
         {product &&
           product.map((e, i) => {
             return i < pagination * 20 ? (

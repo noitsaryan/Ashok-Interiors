@@ -29,6 +29,7 @@ export default function MyModal() {
 
     const fetchProduct = async (id) => {
         const res = await fetchById(id);
+        console.log(res.data)
         setRes(res.data.data);
 
         // Initialize state variables with data from 'res'
@@ -213,9 +214,9 @@ export default function MyModal() {
                                             <p>
                                                 Product Images:
                                             </p>
-                                            {
-                                                res.productImages && res.productImages.map((e, i) => {
-                                                    return <Image
+                                            {res?.productImages ? (
+                                                res.productImages.map((e, i) => (
+                                                    <Image
                                                         key={i}
                                                         alt='product'
                                                         width={100}
@@ -223,8 +224,10 @@ export default function MyModal() {
                                                         className='aspect-square object-cover'
                                                         src={`http://localhost:4000/ProductImages/${e}`}
                                                     />
-                                                })
-                                            }
+                                                ))
+                                            ) : (
+                                                <p>No product images available.</p>
+                                            )}
                                         </div>
                                         <div>
                                             <button className='bg-green-500 px-4 py-2 text-white rounded-lg my-4 hover-bg-green-800 transition-all '
@@ -270,7 +273,7 @@ export default function MyModal() {
                     </div>
                 </Dialog>
             </Transition>
-            <ToastContainer/>
+            <ToastContainer />
         </>
     );
 }

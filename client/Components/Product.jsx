@@ -44,7 +44,7 @@ function Product({ image, title, price, sku, category }) {
           height={300}
           alt="product-image"
           src={`http://localhost:4000/ProductImages/${image}`}
-          className="md:rounded-sm object-cover aspect-square hover:scale-105 transition-all"
+          className="md:rounded-md object-cover aspect-square hover:scale-105 transition-all"
         />
         <div className="flex items-start flex-col ">
           <h1 className="font-bold max-w-xs my-2 truncate"> {title} </h1>
