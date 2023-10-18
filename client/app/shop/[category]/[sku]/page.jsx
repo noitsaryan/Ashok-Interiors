@@ -11,7 +11,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { addCart, getCookie } from "@/lib/Utils/Auth";
 import { useAppContext } from "@/context/adminStore";
 import { useRouter } from "next/navigation";
-import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
+import {
+  RiArrowDownSLine,
+  RiArrowLeftSLine,
+  RiArrowRightSLine,
+} from "react-icons/ri";
 
 function page({ params }) {
   const { value, setValue } = useAppContext();
@@ -31,6 +35,7 @@ function page({ params }) {
   const { category } = params;
   const route = useRouter(null);
   const [imageNo, setImageNo] = useState(0);
+  const [switchNote, setSwitchNote] = useState(false);
 
   const fetchProduct = async () => {
     const result = await fetchById(sku);
@@ -231,6 +236,7 @@ function page({ params }) {
                 } ${switchDiv ? "hidden" : "visible"} h-6`}
               >
                 <p> {data.description}</p>
+           
               </div>
               <div
                 className={`text-left w-full flex flex-col gap-2 text-sm ${
@@ -258,7 +264,27 @@ function page({ params }) {
                  <div className="h-9 w-9 rounded-md  bg-yellow-900"></div> 
                  </div>
               </div> */}
+                   <div className="text-xs bg-slate-200 rounded p-1 px-3 w-full">
+                  <span className="flex items-center justify-between">
+                    <b>Note</b>
+                    <RiArrowDownSLine
+                      className={`pr-3 text-3xl ${
+                        switchNote ? "rotate-180" : "rotate-0"
+                      }`}
+                      onClick={() => setSwitchNote(!switchNote)}
+                    />
+                  </span>
+                  <p className={`${switchNote ? "visible" : "hidden"}`}>
+                    Our product is carefully made by skilled artisans, so there
+                    may be some small differences between each item. The color
+                    of the actual product might look slightly different from the
+                    pictures because of the lighting. Since we use natural
+                    materials, there may be some natural variations in color and
+                    texture in the product you receive.
+                  </p>
+                </div>
             </div>
+            
             <div className="flex-col md:flex-row flex items-center font-semibold m-4 gap-2">
               <p>Quantity</p>
               <div className="border flex w-36 justify-around p-2 rounded-md select-none">
