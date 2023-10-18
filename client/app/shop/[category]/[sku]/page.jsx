@@ -243,10 +243,10 @@ function page({ params }) {
                   switchDiv ? "visible" : "hidden"
                 }`}
               >
-                <p>Unit (U):{data.specification.unit}</p>
-                <p>Size: {data.specification.size}</p>
-                <p>Color: {data.specification.color} </p>
-                <p>Packaging: {data.specification.packaging}</p>
+                <p>&#8226; Unit (U):{data.specification.unit}</p>
+                <p>&#8226; Size: {data.specification.size}</p>
+                <p>&#8226; Color: {data.specification.color} </p>
+                <p>&#8226; Packaging: {data.specification.packaging}</p>
               </div>
               <button
                 className={`text-sm font-semibold ${
