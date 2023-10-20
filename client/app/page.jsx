@@ -72,7 +72,7 @@ export default function page() {
 
   return (
     <main className="HomeMain">
-      <div className="w-full flex gap-8 pb-3 items-center justify-center">
+      <div className="w-full flex md:gap-8 gap-2 pb-3 items-center justify-center text-xs md:text-sm">
         <p className="text-[16px] font-semibold border-Secondary">FURNITURE</p>
         <p className="text-[16px] font-semibold border-Secondary">CONTRACTORS</p>
         <p className="text-[16px] font-semibold">INTERIORS</p>
@@ -216,8 +216,15 @@ export default function page() {
             <h1 className="text-lg font-medium "> Studio </h1>
           </div>
         </div>
+        
       </section>
-
+      <br />
+      <CtaButton
+        btnTxt="SHOP NOW"
+        btnLink="/shop"
+        styles='mx-auto'
+        btnIcon={RiArrowRightLine}
+      />
       <section className="px-4">
         <Swiper
           className="w-full h-full px-4 items-center gap-6  mx-auto"
@@ -263,12 +270,7 @@ export default function page() {
         </Swiper>
       </section>
 
-      <CtaButton
-        btnTxt="SHOP NOW"
-        btnLink="/shop"
-        styles='mx-auto'
-        btnIcon={RiArrowRightLine}
-      />
+     
       <section className="flex md:flex-col items-center px-8" >
         <h2 className="text-3xl my-4 underline underline-offset-2 ">Residential</h2>
 
@@ -416,11 +418,13 @@ export default function page() {
             })
           }
         </Swiper>
+        <br />
         <CtaButton
           btnTxt="Project"
           btnLink="/project"
           btnIcon={RiArrowRightLine}
         />
+        <br />
       </section>
 
       <section className="border-t pt-2">

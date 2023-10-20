@@ -155,7 +155,7 @@ const Page = () => {
           ))}
         </div>
       </section>
-      <section>
+      <section className="mt-8">
         {ProductCtg.map((elem) => {
           if (elem.CtgName === ctg) {
             if (elem.CtgName === "Studio") {

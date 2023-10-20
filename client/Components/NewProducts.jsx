@@ -256,6 +256,22 @@ function NewProducts() {
             </div>
           </div>
         </div>
+        <div className="w-full h-auto p-2 px-5 border">
+        <h2 className="font-semibold text-red-400 mb-3">
+            Custom Product Specifications ⓘ
+          </h2>
+          <div className="w-full flex items-center justify-between">
+         <div className="w-2/5">
+          <div className="flex gap-2">
+            <span className="flex flex-col">KEY<input type="text" className="border-slate-300 border rounded-md mt-1 p-1"/></span>  
+            <span className="flex flex-col border-l-2 pl-3">VALUE<input type="text" className="border-slate-300 border rounded-md mt-1 p-1" /></span>
+
+          </div>
+         
+         </div>
+         <div className="flex-1 border-l-2">gfg</div>
+          </div>
+        </div>
       </section>
       <ToastContainer />
     </main>

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@headlessui/react": "^1.7.17",
+    "compression": "^1.7.4"
+  }
+}

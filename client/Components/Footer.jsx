@@ -24,7 +24,7 @@ function Footer() {
         <div key={i}>
           <h3>{elems.h3}</h3>
           {elems.link.map((elem, j) => (
-            <Link href={elems.hrefs[j]} key={j}>
+            <Link href={elems.hrefs[j]} key={j} className="hover:text-Secondary">
               {elem}
             </Link>
           ))}
