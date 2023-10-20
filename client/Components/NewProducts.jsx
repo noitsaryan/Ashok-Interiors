@@ -2,6 +2,7 @@ import { UploadProducts } from "@/lib/Utils/Panel";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
+import { PiMinusCircle, PiMinusCircleFill } from "react-icons/pi";
 import { RiH1 } from "react-icons/ri";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -51,6 +52,13 @@ function NewProducts() {
       })
     }
    
+  }
+
+  const RemoveSpecs=(index)=>{
+   const array=specsArray.filter((e, i)=>i!=index);
+   setSpecsArray([
+    ...array
+   ])
   }
   const onSubmit = async () => {
     try {
@@ -308,7 +316,8 @@ function NewProducts() {
          <div className="flex-1 border-l-2 h-full p-8 flex flex-wrap gap-2">
          {
           specsArray.length<1 ? <h1>No Key value pair is selected yet</h1> : specsArray.map((elem, i)=> <span key={i}
-          className="p-2 px-4 bg-red-100 border border-red-300 rounded-full"><span className="border-r-2 border-red-300 pr-2">{elem.key}</span> <span>{elem.value}</span>
+          className="p-2 px-6 bg-red-100 border border-red-300 rounded-full relative"><span>{elem.key}</span> <span  className="border-l-2 border-red-300 pl-2">{elem.value}</span>
+<PiMinusCircle className="absolute top-1 right-1 text-Secondary cursor-pointer hover:opacity-70" onClick={()=>RemoveSpecs(i)}/>
           </span>)
          }
          </div>
