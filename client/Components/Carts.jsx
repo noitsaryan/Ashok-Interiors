@@ -13,7 +13,9 @@ function Carts() {
   const [quantities, setQuantities] = useState([]); // Array to store quantities
   const [pricing, setPricing] = useState(Number)
   const [email, setEmail] = useState(String)
+
   const deleteFunction = async (key) => {
+    console.log(key)
     const res1 = await getCookie();
     const res = await removeCart(res1.data.value.email, key);
     console.log(res);
@@ -74,7 +76,7 @@ function Carts() {
   function calculateTotalPrice(cart, quantities) {
     // Calculate the total price for each product and sum them up
     const totalPrice = cart.reduce((total, product, index) => {
-      const productPrice = product.data.price * quantities[index];
+      const productPrice = product.data?.price * quantities[index];
       return total + productPrice;
     }, 0);
     console.log(totalPrice)
@@ -200,7 +202,7 @@ function Carts() {
         return (
           <section key={i} className='my-2 py-4 w-full bg-slate-100 rounded flex justify-between  items-center px-4'>
             <div className='flex items-start gap-2 flex-col'>
-              <h2 className='font-semibold text-xl'>{e.data.title}</h2>
+              <h2 className='font-semibold text-xl'>{e.data?.title}</h2>
               <div className='flex items-center'>
                 <p>Quantity :</p>
                 <div className='border flex gap-3 mx-1 justify-around px-4  rounded-md select-none bg-white'>
@@ -222,22 +224,22 @@ function Carts() {
                     +
                   </button>
                 </div>
-                <h3 className='font-semibold text-lg ml-2'>₹ {e.data.price.toLocaleString()}</h3>
+                <h3 className='font-semibold text-lg ml-2'>₹ {e.data?.price.toLocaleString()}</h3>
                 <p className='text-sm mx-1'> (Inc. of all taxes and charges) </p>
               </div>
               <div className='flex items-center gap-2 '>
-                <div className='flex cursor-pointer bg-white border max-w-min px-2 py-1 rounded-md items-center font-regular text-sm hover:opacity-70' onClick={() => { deleteFunction(sku) }}>
+                <div className='flex cursor-pointer bg-white border max-w-min px-2 py-1 rounded-md items-center font-regular text-sm hover:opacity-70' onClick={() => { deleteFunction(e.data?.sku) }}>
                   <BsTrash className=' text-lg text-Secondary  cursor-pointer transition-all' />
                   <p className='mx-1'>Remove</p>
                 </div>
-                <Link href={`/shop/${e.data.parentCategory}/${e.data.sku}`} className='flex cursor-pointer bg-white border max-w-min px-2 py-1 rounded-md items-center font-regular text-sm hover:opacity-70' onClick={() => { deleteFunction(sku) }} >
+                <Link href={`/shop/${e.data?.parentCategory}/${e.data?.sku}`} className='flex cursor-pointer bg-white border max-w-min px-2 py-1 rounded-md items-center font-regular text-sm hover:opacity-70' onClick={() => { deleteFunction(sku) }} >
                   <AiOutlineLink className=' text-lg text-Secondary  cursor-pointer transition-all' />
                   <p className='mx-1'>Visit</p>
                 </Link>
               </div>
             </div>
             <div className='aspect-square bg-slate-400 mr-3 overflow-hidden object-cover'>
-              <Image src={`http://localhost:4000/ProductImages/${e.data.productImages[0]}`} width={200} height={200} alt='image' className='object-cover w-28 hidden md:block ' />
+              <Image src={`http://localhost:4000/ProductImages/${e.data?.productImages[0]}`} width={200} height={200} alt='image' className='object-cover w-28 hidden md:block ' />
             </div>
           </section>
         );

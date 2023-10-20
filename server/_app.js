@@ -3,11 +3,13 @@ const router = require("./routes/routes");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const compression = require("compression");
 require("dotenv").config();
 
 const app = express();
 
 // Middlewares
+app.use(compression())
 app.use(express.static("public"));
 app.use(cors({
   origin: 'http://localhost:3000',
