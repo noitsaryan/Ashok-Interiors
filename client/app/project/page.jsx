@@ -11,14 +11,14 @@ const Page = () => {
       ImgTxt: [
         // "/CategoryImages/ResidentialImg/Img1.webp",
         // "/CategoryImages/ResidentialImg/Img2.webp",
-        "/CategoryImages/ResidentialImg/Img15.webp",
-        "/CategoryImages/ResidentialImg/Img13.webp",
         "/CategoryImages/ResidentialImg/Img12.webp",
         "/CategoryImages/ResidentialImg/Img11.webp",
         "/CategoryImages/ResidentialImg/Img10.webp",
         "/CategoryImages/ResidentialImg/Img9.webp",
         "/CategoryImages/ResidentialImg/Img8.webp",
         "/CategoryImages/ResidentialImg/Img7.webp",
+        "/CategoryImages/ResidentialImg/Img15.webp",
+        "/CategoryImages/ResidentialImg/Img13.webp",
         "/CategoryImages/ResidentialImg/Img6.webp",
         "/CategoryImages/ResidentialImg/Img5.webp",
         "/CategoryImages/ResidentialImg/Img4.webp",
@@ -177,7 +177,7 @@ const Page = () => {
                                 alt="categories"
                                 width={600}
                                 height={300}
-                                className="hover:scale-105 transition-all hover:rotate-2"
+                                className="hover:scale-105 duration-700 transition-all hover:rotate-1"
                               />
                               </div>
                             );
@@ -202,7 +202,7 @@ const Page = () => {
                      alt="categories"
                      width={600}
                      height={300}
-                     className="hover:scale-105 transition-all hover:rotate-2"
+                     className="hover:scale-105 duration-700  transition-all hover:rotate-1"
                    />
                    </div>
                   ))}

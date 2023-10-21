@@ -531,9 +531,10 @@ const getCookie = async (req, res) => {
 
 const clearCookie = async (req, res) => {
   try {
+    
     res.clearCookie("userToken");
     res.clearCookie("adminToken");
-
+    
     return res.json({
       success: true,
     });

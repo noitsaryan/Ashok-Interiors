@@ -371,7 +371,7 @@ function page({ params }) {
           </div>
         </section>
       )}
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-items-center w-full gap-5 p-3">
+      <section className="justify-items-center w-full gap-5 p-3">
         <h1 className="text-center text-2xl font-bold">Related Products</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center justify-center gap-3 px-3 md:px-8 mx-auto">
           {related &&

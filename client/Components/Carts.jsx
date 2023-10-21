@@ -178,10 +178,7 @@ function Carts() {
           razorpay_payment_id,
           razorpay_signature,
         };
-
-        // Create orders for each product in the cart
         const orderPromises = cart.map(async (e, i) => {
-          // Replace with the actual implementation of your 'newOrder' function
           return newOrder(
             data.data.order.id,
             payment,

@@ -6,9 +6,13 @@ const MyOrder = () => {
   const [products, setProducts] = useState([]);
   const getOrder = async () => {
     const res = await getCookie();
-    const email = res.data.value.email;
-    const user = await fetchUser(email);
-    setProducts(user.data.data.order);
+    if (!res.data.value.email) {
+      return;
+    } else {
+      const email = res.data.value.email;
+      const user = await fetchUser(email);
+      setProducts(user.data.data.order);
+    }
   };
 
   useEffect(() => {

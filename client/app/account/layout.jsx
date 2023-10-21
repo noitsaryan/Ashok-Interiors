@@ -4,19 +4,19 @@ import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { FiBox, FiChevronRight, FiHome, FiLock, FiLogOut, FiShoppingBag, FiUser } from "react-icons/fi";
-import { Logout } from '@/lib/Utils/Auth';
+import axios from 'axios';
 
 
 export default function RootLayout({ children }) {
     const route = useRouter(null)
+
     const logout = async () => {
-        const res = await Logout()
-        // route.push('/login')
+        const res = await axios.get("http://localhost:4000/api/clearCookie", {
+            withCredentials: true,
+        });
+        route.push('/login')
     }
     const location = usePathname('/account')
-    useEffect(() => {
-        logout()
-    }, [])
     return (
         <main className='w-full bg-slate-100 flex items-start justify-center gap-3 md:p-10 relative flex-col md:flex-row'>
             <section className='h-full w-96 bg-Primary flex-col items-stretch md:p-4 gap-3 hidden md:flex'>
@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
                 <Link href="/account/address" className={`h-20  ${location == '/account/address' ? 'bg-slate-200' : 'bg-white'} hover:bg-slate-200 rounded-sm shadow flex items-center justify-between px-2`}><span className='flex items-center justify-center gap-2'><FiHome className='text-3xl text-Secondary' />Address</span><FiChevronRight /></Link>
                 <Link href="/account/userdata" className={`h-20 ${location == '/account/personaldata' ? 'bg-slate-200' : 'bg-white'} hover:bg-slate-200 rounded-sm shadow flex items-center justify-between px-2`}><span className='flex items-center justify-center gap-2'><FiUser className='text-3xl text-Secondary' />Personal Data</span><FiChevronRight /></Link>
                 <Link href="/forget" className={`h-20 ${location == '/account/password' ? 'bg-slate-200' : 'bg-white'} hover:bg-slate-200 rounded-sm shadow flex items-center justify-between px-2`}><span className='flex items-center justify-center gap-2'><FiLock className='text-3xl text-Secondary' />Password</span><FiChevronRight /></Link>
-                <button onClick={() => logout()}  className={`h-20 ${location == '/account/signout' ? 'bg-slate-200' : 'bg-white'} hover:bg-slate-200 rounded-sm shadow flex items-center justify-between px-2`}><span className='flex items-center justify-center gap-2'><FiLogOut className='text-3xl text-Secondary' />Sign Out</span><FiChevronRight /></button>
+                <button onClick={logout} className={`h-20 ${location == '/account/signout' ? 'bg-slate-200' : 'bg-white'} hover:bg-slate-200 rounded-sm shadow flex items-center justify-between px-2`}><span className='flex items-center justify-center gap-2'><FiLogOut className='text-3xl text-Secondary' />Sign Out</span><FiChevronRight /></button>
 
 
             </section>
@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
                     <Link href="/account/address" className='text-3xl text-Secondary p-1 rounded hover:bg-slate-200'>< FiHome /></Link>
                     <Link href="/account/userdata" className='text-3xl text-Secondary p-1 rounded hover:bg-slate-200'>< FiUser /></Link>
                     <Link href="/forget" className='text-3xl text-Secondary p-1 rounded hover:bg-slate-200'>< FiLock /></Link>
-                    <button onClick={() => logout()} className='text-3xl text-Secondary p-1 rounded hover:bg-slate-200'><FiLogOut /></button>
+                    <button onClick={logout} className='text-3xl text-Secondary p-1 rounded hover:bg-slate-200'><FiLogOut /></button>
 
                 </div>
             </section>
