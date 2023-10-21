@@ -612,14 +612,14 @@ padding: 30px;
 } 
 
 /* whatsAppIcon */
-.whatsAppIcon{
+/* .whatsAppIcon{
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom:60px;
+  right: 10px;
   font-size: 50px;
   color: #00FE47;
   z-index: 100;
-}
+} */
 
 /* Loader */
 .spinner {

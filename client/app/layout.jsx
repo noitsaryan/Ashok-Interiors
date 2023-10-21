@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
           <Header />
           {children}
           <Footer />
-          <i className="whatsAppIcon">
+          <i className="text-white rounded-full shadow-md p-1 bg-green-400 fixed bottom-14 right-3 md:right-8 md:bottom-8 text-4xl z-20">
             <Link
               href="https://wa.link/i10apq"
             >
