@@ -212,25 +212,22 @@ function page({ params }) {
             <div className="px-4 py-4 h-auto flex flex-col items-start gap-2 w-full ">
               <span className="text-gray-400 flex gap-4 items-center justify-center">
                 <button
-                  className={`border-Secondary ${
-                    switchDiv=="desc" ? "border-b-2" : "border-b-0"
-                  }`}
+                  className={`border-Secondary ${switchDiv == "desc" ? "border-b-2" : "border-b-0"
+                    }`}
                   onClick={() => setSwitchDiv("desc")}
                 >
                   Description
                 </button>{" "}
                 <button
-                  className={`border-Secondary ${
-                    switchDiv=="specs" ? "border-b-2" : "border-b-0"
-                  }`}
+                  className={`border-Secondary ${switchDiv == "specs" ? "border-b-2" : "border-b-0"
+                    }`}
                   onClick={() => setSwitchDiv("specs")}
                 >
-                  Specifications
+                  Specification
                 </button>
                 <button
-                  className={`border-Secondary ${
-                    switchDiv==="note" ? "border-b-2" : "border-b-0"
-                  }`}
+                  className={`border-Secondary ${switchDiv === "note" ? "border-b-2" : "border-b-0"
+                    }`}
                   onClick={() => {
                     setSwitchDiv("note")
                   }}
@@ -240,41 +237,43 @@ function page({ params }) {
               </span>
 
               <div
-                className={`text-left text-sm max-w-md ${
-                  expand ? "overflow-visible h-auto" : "overflow-hidden"
-                } ${switchDiv=="desc" ? "visible" : "hidden"} h-6`}
+                className={`text-left text-sm max-w-md ${expand ? "overflow-visible h-auto" : "overflow-hidden"
+                  } ${switchDiv == "desc" ? "visible" : "hidden"} h-6`}
               >
                 <p> {data.description}</p>
-           
+
               </div>
               <div
-                className={`text-left w-full flex flex-col gap-2 text-sm ${
-                  switchDiv=="specs" ? "visible" : "hidden"
-                }`}
+                className={`text-left w-full flex flex-col gap-2 text-sm ${switchDiv == "specs" ? "visible" : "hidden"
+                  }`}
               >
                 <p>&#8226; Unit (U):{data.specification.unit}</p>
                 <p>&#8226; Size: {data.specification.size}</p>
                 <p>&#8226; Color: {data.specification.color} </p>
                 <p>&#8226; Packaging: {data.specification.packaging}</p>
+                {
+                  data && data?.extraSpecs.map((e, i) => {
+                    return <p>
+                     &#8226; {e.key} : {e.value}
+                    </p>
+                  })}
               </div>
               <div
-                className={`text-left w-full flex flex-col gap-2 text-sm ${
-                  switchDiv=="note" ? "visible" : "hidden"
-                }`}
+                className={`text-left w-full flex flex-col gap-2 text-sm ${switchDiv == "note" ? "visible" : "hidden"
+                  }`}
               >
                 <p>
-                 Our product is carefully made by skilled artisans, so there
-                    may be some small differences between each item. The color
-                    of the actual product might look slightly different from the
-                    pictures because of the lighting. Since we use natural
-                    materials, there may be some natural variations in color and
-                    texture in the product you receive.
-               </p>
+                  Our product is carefully made by skilled artisans, so there
+                  may be some small differences between each item. The color
+                  of the actual product might look slightly different from the
+                  pictures because of the lighting. Since we use natural
+                  materials, there may be some natural variations in color and
+                  texture in the product you receive.
+                </p>
               </div>
               <button
-                className={`text-sm font-semibold ${
-                  switchDiv=="desc" ? "visible" : "hidden"
-                }`}
+                className={`text-sm font-semibold ${switchDiv == "desc" ? "visible" : "hidden"
+                  }`}
                 onClick={() => setExpand((prev) => !prev)}
               >
                 {expand ? "Less" : "More"}
@@ -287,9 +286,9 @@ function page({ params }) {
                  <div className="h-9 w-9 rounded-md  bg-yellow-900"></div> 
                  </div>
               </div> */}
-                  
+
             </div>
-            
+
             <div className="flex-col md:flex-row flex items-center font-semibold m-4 gap-2">
               <p>Quantity</p>
               <div className="border flex w-36 justify-around p-2 rounded-md select-none">
@@ -371,7 +370,7 @@ function page({ params }) {
           </div>
         </section>
       )}
-      <section className="justify-items-center w-full gap-5 p-3">
+      <section className="flex flex-col justify-items-center w-full gap-5 p-3">
         <h1 className="text-center text-2xl font-bold">Related Products</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center justify-center gap-3 px-3 md:px-8 mx-auto">
           {related &&

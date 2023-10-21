@@ -72,7 +72,7 @@ export default function page() {
 
   return (
     <main className="HomeMain">
-      <div className="w-full flex md:gap-8 gap-2 pb-3 items-center justify-center text-xs md:text-sm">
+      <div className="w-full md:gap-8 gap-2 pb-3 items-center justify-center text-xs md:text-sm hidden md:flex ">
         <p className="text-[16px] font-semibold border-Secondary">FURNITURE</p>
         <p className="text-[16px] font-semibold border-Secondary">CONTRACTORS</p>
         <p className="text-[16px] font-semibold">INTERIORS</p>

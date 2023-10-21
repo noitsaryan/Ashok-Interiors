@@ -39,13 +39,15 @@ function Product({ image, title, price, sku, category }) {
   ) : (
     <Link href={`/shop/${category}/${sku}`}>
       <div className="col-span-2 flex flex-col justify-center py-8 cursor-pointer lg:col-span-1 max-w-sm ">
-        <Image
-          width={300}
-          height={300}
-          alt="product-image"
-          src={`http://localhost:4000/ProductImages/${image}`}
-          className="md:rounded-md object-cover aspect-square hover:scale-105 transition-all"
-        />
+        <div className="overflow-hidden">
+          <Image
+            width={300}
+            height={300}
+            alt="product-image"
+            src={`http://localhost:4000/ProductImages/${image}`}
+            className="md:rounded-md object-cover aspect-square duration-500 hover:scale-105 transition-all"
+          />
+        </div>
         <div className="flex items-start flex-col ">
           <h1 className="font-bold max-w-xs my-2 truncate"> {title} </h1>
           <div className="flex items-center justify-between w-full py-2">
