@@ -17,7 +17,8 @@ function page({ params }) {
     }, [])
 
     return (
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center gap-3 p-3'>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-items-center w-full gap-5 p-3">
+
             {
                 product.length > 0 && product.map((e, i) => {
                     return <Product image={e.productImages?.[0]} title={e.title} sku={e.sku} price={e.price} category={e.parentCategory} key={i} />

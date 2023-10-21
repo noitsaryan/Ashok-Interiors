@@ -2,6 +2,7 @@ import { UploadProducts } from "@/lib/Utils/Panel";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
+import { PiMinusCircle, PiMinusCircleFill } from "react-icons/pi";
 import { RiH1 } from "react-icons/ri";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -51,6 +52,13 @@ function NewProducts() {
       })
     }
 
+  }
+
+  const RemoveSpecs=(index)=>{
+   const array=specsArray.filter((e, i)=>i!=index);
+   setSpecsArray([
+    ...array
+   ])
   }
   const onSubmit = async () => {
     try {
@@ -302,18 +310,19 @@ function NewProducts() {
                 <span className="flex flex-col">KEY<input type="text" className="border-slate-300 border rounded-md mt-1 p-1" name="key" onChange={customSpecsFunc} value={customSpecs.key} /></span>
                 <span className="flex flex-col pl-3">VALUE<input type="text" className="border-slate-300 border rounded-md mt-1 p-1" name="value" onChange={customSpecsFunc} value={customSpecs.value} /></span>
 
-              </div>
-              <button className="bg-Secondary rounded-md p-1 px-5 border-Secondary border text-white font-semibold hover:bg-transparent hover:text-Secondary mt-3"
-                onClick={() => submitSpecs()}
-              >ADD</button>
-            </div>
-            <div className="flex-1 border-l-2 h-full p-8 flex flex-wrap gap-2">
-              {
-                specsArray.length < 1 ? <h1>No Key value pair is selected yet</h1> : specsArray.map((elem, i) => <span key={i}
-                  className="p-2 px-4 bg-red-100 border border-red-300 rounded-full"><span className="border-r-2 border-red-300 pr-2">{elem.key}</span> <span>{elem.value}</span>
-                </span>)
-              }
-            </div>
+          </div>
+         <button className="bg-Secondary rounded-md p-1 px-5 border-Secondary border text-white font-semibold hover:bg-transparent hover:text-Secondary mt-3"
+         onClick={()=>submitSpecs()}
+         >ADD</button>
+         </div>
+         <div className="flex-1 border-l-2 h-full p-8 flex flex-wrap gap-2">
+         {
+          specsArray.length<1 ? <h1>No Key value pair is selected yet</h1> : specsArray.map((elem, i)=> <span key={i}
+          className="p-2 px-6 bg-red-100 border border-red-300 rounded-full relative"><span>{elem.key}</span> <span  className="border-l-2 border-red-300 pl-2">{elem.value}</span>
+<PiMinusCircle className="absolute top-1 right-1 text-Secondary cursor-pointer hover:opacity-70" onClick={()=>RemoveSpecs(i)}/>
+          </span>)
+         }
+         </div>
           </div>
         </div>
       </section>

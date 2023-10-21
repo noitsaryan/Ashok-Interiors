@@ -9,20 +9,20 @@ const Page = () => {
     {
       CtgName: "Residential",
       ImgTxt: [
-        "/CategoryImages/ResidentialImg/Img1.webp",
-        "/CategoryImages/ResidentialImg/Img2.webp",
-        "/CategoryImages/ResidentialImg/Img3.webp",
-        "/CategoryImages/ResidentialImg/Img4.webp",
-        "/CategoryImages/ResidentialImg/Img5.webp",
-        "/CategoryImages/ResidentialImg/Img6.webp",
-        "/CategoryImages/ResidentialImg/Img6.webp",
-        "/CategoryImages/ResidentialImg/Img8.webp",
-        "/CategoryImages/ResidentialImg/Img9.webp",
-        "/CategoryImages/ResidentialImg/Img10.webp",
-        "/CategoryImages/ResidentialImg/Img11.webp",
-        "/CategoryImages/ResidentialImg/Img12.webp",
-        "/CategoryImages/ResidentialImg/Img13.webp",
+        // "/CategoryImages/ResidentialImg/Img1.webp",
+        // "/CategoryImages/ResidentialImg/Img2.webp",
         "/CategoryImages/ResidentialImg/Img15.webp",
+        "/CategoryImages/ResidentialImg/Img13.webp",
+        "/CategoryImages/ResidentialImg/Img12.webp",
+        "/CategoryImages/ResidentialImg/Img11.webp",
+        "/CategoryImages/ResidentialImg/Img10.webp",
+        "/CategoryImages/ResidentialImg/Img9.webp",
+        "/CategoryImages/ResidentialImg/Img8.webp",
+        "/CategoryImages/ResidentialImg/Img7.webp",
+        "/CategoryImages/ResidentialImg/Img6.webp",
+        "/CategoryImages/ResidentialImg/Img5.webp",
+        "/CategoryImages/ResidentialImg/Img4.webp",
+        "/CategoryImages/ResidentialImg/Img3.webp"
       ],
     },
     {
@@ -163,20 +163,23 @@ const Page = () => {
                 <div key={uuidv4()}>
                   {elem.ImgTxt.map((elem, i) => {
                     return (
-                      <div key={uuidv4()} className="md:px-3">
-                        <h1 className="text-3xl text-Secondary font-semibold underline w-full text-center m-3 font-light">
+                      <div key={uuidv4()} className="md:px-3 flex flex-col items-center justify-center">
+                        <h1 className=" text-xl md:text-2xl bg-red-100 text-red-400 font-semibold p-2 text-center m-3 w-fit">
                           {elem.studioName}
                         </h1>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full mb-9">
                           {elem.stdImg.map((elem, i) => {
                             return (
-                              <Image
+                             <div className="overflow-hidden">
+                               <Image
                                 src={elem}
                                 key={i}
                                 alt="categories"
                                 width={600}
                                 height={300}
+                                className="hover:scale-105 transition-all hover:rotate-2"
                               />
+                              </div>
                             );
                           })}
                         </div>
@@ -191,14 +194,17 @@ const Page = () => {
                   key={uuidv4()}
                   className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full mt-3 p-2"
                 >
-                  {elem.ImgTxt.map((img, i) => (
+                  {elem.ImgTxt.map((elem, i) => (
+                    <div className="overflow-hidden">
                     <Image
-                      key={i}
-                      src={img}
-                      alt="categories"
-                      width={600}
-                      height={300}
-                    />
+                     src={elem}
+                     key={i}
+                     alt="categories"
+                     width={600}
+                     height={300}
+                     className="hover:scale-105 transition-all hover:rotate-2"
+                   />
+                   </div>
                   ))}
                 </div>
               );

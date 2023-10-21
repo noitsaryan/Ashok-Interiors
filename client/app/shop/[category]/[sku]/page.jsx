@@ -27,7 +27,7 @@ function page({ params }) {
   const [image, setImage] = useState([]);
   const [email, setEmail] = useState();
   const [related, setRelated] = useState([]);
-  const [switchDiv, setSwitchDiv] = useState(Boolean);
+  const [switchDiv, setSwitchDiv] = useState("desc");
   const [pinInput, setPinInput] = useState("");
   const [load, setLoad] = useState(true);
   const { productImages } = data;
@@ -35,7 +35,6 @@ function page({ params }) {
   const { category } = params;
   const route = useRouter(null);
   const [imageNo, setImageNo] = useState(0);
-  const [switchNote, setSwitchNote] = useState(false);
 
   const fetchProduct = async () => {
     const result = await fetchById(sku);
@@ -214,33 +213,43 @@ function page({ params }) {
               <span className="text-gray-400 flex gap-4 items-center justify-center">
                 <button
                   className={`border-Secondary ${
-                    switchDiv ? "border-b-0" : "border-b-2"
+                    switchDiv=="desc" ? "border-b-2" : "border-b-0"
                   }`}
-                  onClick={() => setSwitchDiv(false)}
+                  onClick={() => setSwitchDiv("desc")}
                 >
                   Description
                 </button>{" "}
                 <button
                   className={`border-Secondary ${
-                    switchDiv ? "border-b-2" : "border-b-0"
+                    switchDiv=="specs" ? "border-b-2" : "border-b-0"
                   }`}
-                  onClick={() => setSwitchDiv(true)}
+                  onClick={() => setSwitchDiv("specs")}
                 >
                   Specifications
+                </button>
+                <button
+                  className={`border-Secondary ${
+                    switchDiv==="note" ? "border-b-2" : "border-b-0"
+                  }`}
+                  onClick={() => {
+                    setSwitchDiv("note")
+                  }}
+                >
+                  Note
                 </button>
               </span>
 
               <div
                 className={`text-left text-sm max-w-md ${
                   expand ? "overflow-visible h-auto" : "overflow-hidden"
-                } ${switchDiv ? "hidden" : "visible"} h-6`}
+                } ${switchDiv=="desc" ? "visible" : "hidden"} h-6`}
               >
                 <p> {data.description}</p>
            
               </div>
               <div
                 className={`text-left w-full flex flex-col gap-2 text-sm ${
-                  switchDiv ? "visible" : "hidden"
+                  switchDiv=="specs" ? "visible" : "hidden"
                 }`}
               >
                 <p>&#8226; Unit (U):{data.specification.unit}</p>
@@ -248,9 +257,23 @@ function page({ params }) {
                 <p>&#8226; Color: {data.specification.color} </p>
                 <p>&#8226; Packaging: {data.specification.packaging}</p>
               </div>
+              <div
+                className={`text-left w-full flex flex-col gap-2 text-sm ${
+                  switchDiv=="note" ? "visible" : "hidden"
+                }`}
+              >
+                <p>
+                 Our product is carefully made by skilled artisans, so there
+                    may be some small differences between each item. The color
+                    of the actual product might look slightly different from the
+                    pictures because of the lighting. Since we use natural
+                    materials, there may be some natural variations in color and
+                    texture in the product you receive.
+               </p>
+              </div>
               <button
                 className={`text-sm font-semibold ${
-                  switchDiv ? "hidden" : "visible"
+                  switchDiv=="desc" ? "visible" : "hidden"
                 }`}
                 onClick={() => setExpand((prev) => !prev)}
               >
@@ -264,25 +287,7 @@ function page({ params }) {
                  <div className="h-9 w-9 rounded-md  bg-yellow-900"></div> 
                  </div>
               </div> */}
-                   <div className="text-xs bg-slate-200 rounded p-1 px-3 w-full">
-                  <span className="flex items-center justify-between">
-                    <b>Note</b>
-                    <RiArrowDownSLine
-                      className={`pr-3 text-3xl ${
-                        switchNote ? "rotate-180" : "rotate-0"
-                      }`}
-                      onClick={() => setSwitchNote(!switchNote)}
-                    />
-                  </span>
-                  <p className={`${switchNote ? "visible" : "hidden"}`}>
-                    Our product is carefully made by skilled artisans, so there
-                    may be some small differences between each item. The color
-                    of the actual product might look slightly different from the
-                    pictures because of the lighting. Since we use natural
-                    materials, there may be some natural variations in color and
-                    texture in the product you receive.
-                  </p>
-                </div>
+                  
             </div>
             
             <div className="flex-col md:flex-row flex items-center font-semibold m-4 gap-2">
@@ -366,9 +371,9 @@ function page({ params }) {
           </div>
         </section>
       )}
-      <section className="mx-auto">
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-items-center w-full gap-5 p-3">
         <h1 className="text-center text-2xl font-bold">Related Products</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center gap-3 px-3 md:px-8 mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center justify-center gap-3 px-3 md:px-8 mx-auto">
           {related &&
             related.map((e, i) => {
               return i < 6 ? (
