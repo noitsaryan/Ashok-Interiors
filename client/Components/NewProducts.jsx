@@ -20,37 +20,37 @@ function NewProducts() {
   const [ProductImages, setProductImages] = useState([]);
 
   const [customSpecs, setCustomSpecs] = useState({
-    key:"",
-    value:""
+    key: "",
+    value: ""
   })
-  const [specsArray, setSpecsArray]=useState([]);
-  const customSpecsFunc=(event)=>{
-  
-    const {name , value}= event.target;
+  const [specsArray, setSpecsArray] = useState([]);
+  const customSpecsFunc = (event) => {
+
+    const { name, value } = event.target;
     setCustomSpecs({
       ...customSpecs,
-      [name]:value
+      [name]: value
     })
 
   }
-  const submitSpecs=()=>{
-    if(customSpecs.key==="" || customSpecs.value===""){
+  const submitSpecs = () => {
+    if (customSpecs.key === "" || customSpecs.value === "") {
       alert("Enter the key and value both the pairs")
     }
-    else{
+    else {
       setSpecsArray([
         ...specsArray,
         {
-        key:customSpecs.key,
-        value:customSpecs.value
+          key: customSpecs.key,
+          value: customSpecs.value
         }
       ])
       setCustomSpecs({
-        key:"",
-        value:""
+        key: "",
+        value: ""
       })
     }
-   
+
   }
   const onSubmit = async () => {
     try {
@@ -86,7 +86,8 @@ function NewProducts() {
         SKU,
         Price,
         reversedFiles,
-        specification
+        specification,
+        specsArray
       );
       console.log(uploadData);
       if (uploadData.data.status == "ok") {
@@ -100,6 +101,7 @@ function NewProducts() {
           progress: undefined,
           theme: "colored",
         });
+        window.location.reload()
       } else if (uploadData.data.errorCode == 404) {
         toast.error("Please fill complete data", {
           position: "top-right",
@@ -291,27 +293,27 @@ function NewProducts() {
           </div>
         </div>
         <div className="w-full h-auto p-2 px-5 border">
-        <h2 className="font-semibold text-red-400 mb-3">
+          <h2 className="font-semibold text-red-400 mb-3">
             Custom Product Specifications ⓘ
           </h2>
           <div className="w-full flex items-center justify-between">
-         <div className="w-2/5">
-          <div className="flex gap-2">
-            <span className="flex flex-col">KEY<input type="text" className="border-slate-300 border rounded-md mt-1 p-1" name="key" onChange={customSpecsFunc} value={customSpecs.key}/></span>  
-            <span className="flex flex-col pl-3">VALUE<input type="text" className="border-slate-300 border rounded-md mt-1 p-1" name="value" onChange={customSpecsFunc} value={customSpecs.value}/></span>
+            <div className="w-2/5">
+              <div className="flex gap-2">
+                <span className="flex flex-col">KEY<input type="text" className="border-slate-300 border rounded-md mt-1 p-1" name="key" onChange={customSpecsFunc} value={customSpecs.key} /></span>
+                <span className="flex flex-col pl-3">VALUE<input type="text" className="border-slate-300 border rounded-md mt-1 p-1" name="value" onChange={customSpecsFunc} value={customSpecs.value} /></span>
 
-          </div>
-         <button className="bg-Secondary rounded-md p-1 px-5 border-Secondary border text-white font-semibold hover:bg-transparent hover:text-Secondary mt-3"
-         onClick={()=>submitSpecs()}
-         >ADD</button>
-         </div>
-         <div className="flex-1 border-l-2 h-full p-8 flex flex-wrap gap-2">
-         {
-          specsArray.length<1 ? <h1>No Key value pair is selected yet</h1> : specsArray.map((elem, i)=> <span key={i}
-          className="p-2 px-4 bg-red-100 border border-red-300 rounded-full"><span className="border-r-2 border-red-300 pr-2">{elem.key}</span> <span>{elem.value}</span>
-          </span>)
-         }
-         </div>
+              </div>
+              <button className="bg-Secondary rounded-md p-1 px-5 border-Secondary border text-white font-semibold hover:bg-transparent hover:text-Secondary mt-3"
+                onClick={() => submitSpecs()}
+              >ADD</button>
+            </div>
+            <div className="flex-1 border-l-2 h-full p-8 flex flex-wrap gap-2">
+              {
+                specsArray.length < 1 ? <h1>No Key value pair is selected yet</h1> : specsArray.map((elem, i) => <span key={i}
+                  className="p-2 px-4 bg-red-100 border border-red-300 rounded-full"><span className="border-r-2 border-red-300 pr-2">{elem.key}</span> <span>{elem.value}</span>
+                </span>)
+              }
+            </div>
           </div>
         </div>
       </section>

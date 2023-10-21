@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { fetchById } from "@/lib/Utils/Panel";
 import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import Image from "next/image";
 
 export default function page({ params }) {
@@ -50,8 +51,6 @@ export default function page({ params }) {
     setData(result.data.data);
     // setImage(result.data.data.productImages)
   };
-  
-  
 
   const initializeRazorpay = () => {
     return new Promise((resolve) => {
@@ -72,6 +71,21 @@ export default function page({ params }) {
   const makePayment = async (amount) => {
     const res = await initializeRazorpay();
 
+    if (!shipping_address ||
+      !billing_address ||
+      !phone) {
+      return toast.info("Please fill all info!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+
     if (!res) {
       alert("Razorpay SDK Failed to load");
       return;
@@ -88,6 +102,7 @@ export default function page({ params }) {
       amount: data.data.order.amount,
       order_id: data.data.order.id,
       description: "Thankyou for purchasing our product!",
+      phone,
       image:
         "https://ashok-interiors.vercel.app/_next/image?url=%2Fmainlogo.png&w=750&q=75",
       handler: async function (response) {
@@ -324,11 +339,11 @@ export default function page({ params }) {
 
                   e.target.checked
                     ? setaddress2({
-                        ...address1,
-                      })
+                      ...address1,
+                    })
                     : setaddress2({
-                        ...address2,
-                      });
+                      ...address2,
+                    });
                 }}
               />{" "}
               Same as shipping address
@@ -337,13 +352,13 @@ export default function page({ params }) {
           <hr />
 
           <div className="flex items-center gap-2">
-               <p className="font-semibold">Set Quantity</p>
-               <span  className="border flex w-36 justify-around p-1 rounded-md select-none mt-1">
-               <button onClick={() => setValue((prev) => prev - 1)}>-</button>
-                <p className="text-Secondary font-semibold"> {value < 1 ? setValue(1) : value} </p>
-                <button onClick={() => setValue((prev) => prev + 1)}>+</button>
-               </span>
-              </div>
+            <p className="font-semibold">Set Quantity</p>
+            <span className="border flex w-36 justify-around p-1 rounded-md select-none mt-1">
+              <button onClick={() => setValue((prev) => prev - 1)}>-</button>
+              <p className="text-Secondary font-semibold"> {value < 1 ? setValue(1) : value} </p>
+              <button onClick={() => setValue((prev) => prev + 1)}>+</button>
+            </span>
+          </div>
           <div>
             <hr />
             <span className="flex flex-col  w-full md:w-64 ">
@@ -353,8 +368,10 @@ export default function page({ params }) {
                 className="p-1 rounded"
                 placeholder="Enter Your Phone Number"
                 required
-                onChange={(e)=>setPhone(e.target.value)}
-              />
+                onChange={(e) => setPhone(e.target.value)}
+                min={9999999999}
+                max={9999999999}
+/>
             </span>
             <p className="font-semibold text-xs opacity-70">
               This phone number should be active
@@ -396,7 +413,7 @@ export default function page({ params }) {
                 className="object-contain"
                 alt="image"
               />
-        
+
             </div>
             <span className="flex gap-2  mt-3">
               <h3 className=" font-semibold text-red-400 whitespace-nowrap">Product name:</h3>{" "}

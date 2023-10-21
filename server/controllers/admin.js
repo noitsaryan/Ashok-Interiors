@@ -112,6 +112,7 @@ const uploadProduct = async (req, res) => {
       parentCategory,
       description,
       specification,
+      extraSpecs,
       sku,
       price,
       productImages,
@@ -125,7 +126,8 @@ const uploadProduct = async (req, res) => {
       !sku ||
       !price ||
       !productImages ||
-      !specification
+      !specification ||
+      !extraSpecs
     ) {
       return res.json({
         success: false,
@@ -149,6 +151,7 @@ const uploadProduct = async (req, res) => {
       parentCategory,
       description,
       specification,
+      extraSpecs,
       sku,
       price,
       productImages,
@@ -344,6 +347,7 @@ const updateProduct = async (req, res) => {
       sku,
       price,
       productImages,
+      extraSpecs
     } = req.body;
 
     await connectDB();
@@ -368,6 +372,7 @@ const updateProduct = async (req, res) => {
         sku,
         price,
         productImages,
+        extraSpecs
       }
     ).exec();
 

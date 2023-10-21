@@ -23,13 +23,49 @@ export default function MyModal() {
     const [newSKU, setNewSKU] = useState('');
     const [price, setPrice] = useState('');
     const [productImages, setProductImages] = useState([])
+    const [extraSpecs, setExtraSpecs] = useState([])
+    const [customSpecs, setCustomSpecs] = useState({
+        key: "",
+        value: ""
+    })
+    const [specsArray, setSpecsArray] = useState([]);
+    const newUpdatedSpecsArray = [...extraSpecs, ...specsArray]
     function closeModal() {
         setIsOpen(false);
     }
 
+    const customSpecsFunc = (event) => {
+
+        const { name, value } = event.target;
+        setCustomSpecs({
+            ...customSpecs,
+            [name]: value
+        })
+
+    }
+
+    const submitSpecs = () => {
+        if (customSpecs.key === "" || customSpecs.value === "") {
+            alert("Enter the key and value both the pairs")
+        }
+        else {
+            setSpecsArray([
+                ...specsArray,
+                {
+                    key: customSpecs.key,
+                    value: customSpecs.value
+                }
+            ])
+            setCustomSpecs({
+                key: "",
+                value: ""
+            })
+        }
+
+    }
+
     const fetchProduct = async (id) => {
         const res = await fetchById(id);
-        console.log(res.data)
         setRes(res.data.data);
 
         // Initialize state variables with data from 'res'
@@ -45,6 +81,7 @@ export default function MyModal() {
             setNewSKU(res.data.data.sku);
             setPrice(res.data.data.price);
             setProductImages(res.data.data.productImages)
+            setExtraSpecs(res.data.data.extraSpecs)
         }
     }
 
@@ -187,6 +224,41 @@ export default function MyModal() {
                                             </div>
                                         </div>
                                         <div className='p-4 border flex items-center gap-4'>
+                                            <p>Extra Specs: </p>
+                                            <div className='flex flex-col'>
+                                                {
+                                                    extraSpecs.map((e, i) => {
+                                                        return <div className='flex items-center' key={i}>
+                                                            <p> {e.key}: </p>
+                                                            <input type="text" placeholder="Extra Specs" className='mx-1' value={e.value} />
+                                                        </div>
+                                                    })
+                                                }
+                                            </div>
+                                            <p> OR </p>
+                                            <div className=" p-2 px-5">
+                                                <div className=" flex flex-col">
+                                                    <div >
+                                                        <div className="flex gap-2">
+                                                            <span className="flex flex-col">KEY<input type="text" className="border-slate-300 border rounded-md mt-1 p-1" name="key" onChange={customSpecsFunc} value={customSpecs.key} /></span>
+                                                            <span className="flex flex-col pl-3">VALUE<input type="text" className="border-slate-300 border rounded-md mt-1 p-1" name="value" onChange={customSpecsFunc} value={customSpecs.value} /></span>
+
+                                                        </div>
+                                                        <button className="bg-green-500 rounded-md p-1 px-5 border-green-500 border text-white font-semibold hover:bg-transparent hover:text-green-500 mt-3"
+                                                            onClick={() => submitSpecs()}
+                                                        >ADD</button>
+                                                    </div>
+                                                    <div className=" p-8 flex flex-wrap gap-2">
+                                                        {
+                                                            specsArray.map((elem, i) => <span key={i}
+                                                                className=""><span className=""> {i + 1}) {elem.key} : </span> <span>{elem.value}</span>
+                                                            </span>)
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className='p-4 border flex items-center gap-4'>
                                             <p>
                                                 SKU:
                                             </p>
@@ -216,14 +288,14 @@ export default function MyModal() {
                                             </p>
                                             {res?.productImages ? (
                                                 res.productImages.map((e, i) => (
-                                                    <Image
-                                                        key={i}
-                                                        alt='product'
-                                                        width={100}
-                                                        height={100}
-                                                        className='aspect-square object-cover'
-                                                        src={`http://localhost:4000/ProductImages/${e}`}
-                                                    />
+                                                    <div key={i} className='bg-cover max-w-[100px]'>
+                                                        <Image
+                                                            alt='product'
+                                                            width={100}
+                                                            height={100}
+                                                            src={`http://localhost:4000/ProductImages/${e}`}
+                                                        />
+                                                    </div>
                                                 ))
                                             ) : (
                                                 <p>No product images available.</p>
@@ -246,7 +318,8 @@ export default function MyModal() {
                                                             },
                                                             sku,
                                                             price,
-                                                            productImages
+                                                            productImages,
+                                                            newUpdatedSpecsArray
                                                         )
                                                         if (res.message.acknowledged) {
                                                             toast.success('Product Updated Successfully', {

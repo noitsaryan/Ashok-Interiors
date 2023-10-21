@@ -45,6 +45,7 @@ const ProductSchema = new Schema({
     type: Array,
     required: true,
   },
+  extraSpecs: Array
 });
 
 const Product = models?.Product || model("Product", ProductSchema);

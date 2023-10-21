@@ -10,7 +10,7 @@ import { Logout } from '@/lib/Utils/Auth';
 export default function RootLayout({ children }) {
     const route = useRouter(null)
     const logout = async () => {
-        const res  = await Logout()
+        const res = await Logout()
         // route.push('/login')
     }
     const location = usePathname('/account')
@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
         logout()
     }, [])
     return (
-        <main className='w-full h-screen bg-slate-100 flex items-center justify-center gap-3 md:p-10 relative flex-col md:flex-row'>
+        <main className='w-full bg-slate-100 flex items-start justify-center gap-3 md:p-10 relative flex-col md:flex-row'>
             <section className='h-full w-96 bg-Primary flex-col items-stretch md:p-4 gap-3 hidden md:flex'>
                 <div><h2 className='font-semibold text-2xl'>My Account</h2></div>
                 <Link href="/account/orders" className={`h-20 ${location == '/account/orders' ? 'bg-slate-200' : 'bg-white'} hover:bg-slate-200 rounded-sm shadow flex items-center justify-between px-2`}><span className='flex items-center justify-center gap-2'><FiBox className='text-3xl text-Secondary' />Orders</span><FiChevronRight /></Link>
@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
 
             </section>
             <section className='w-full h-32 bg-Primary shadow-md mt-2 md:hidden'>
-                <h2 className='font-semibold text-2xl m-3 text-center'>My Account 2</h2>
+                <h2 className='font-semibold text-2xl m-3 text-center'>My Account </h2>
                 <div className=' w-full flex items-center justify-evenly gap-3'>
                     <Link href="/" className='text-3xl text-Secondary p-1 rounded hover:bg-slate-200'><FiBox /></Link>
                     <Link href="/" className='text-3xl text-Secondary p-1 rounded hover:bg-slate-200'>< FiShoppingBag /></Link>
@@ -41,9 +41,8 @@ export default function RootLayout({ children }) {
                     <button onClick={() => logout()} className='text-3xl text-Secondary p-1 rounded hover:bg-slate-200'><FiLogOut /></button>
 
                 </div>
-
             </section>
-            <section className='h-full w-full md:flex-1 bg-Primary p-3 overflow-hidden overflow-y-scroll'>
+            <section className=' w-full md:flex-1 bg-Primary p-3 '>
                 {children}
             </section>
         </main>

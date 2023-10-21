@@ -8,7 +8,8 @@ export async function UploadProducts(
   sku,
   price,
   productImages,
-  specification
+  specification,
+  extraSpecs
 ) {
   const res = await axios.post("http://localhost:4000/api/uploadProduct", {
     title,
@@ -19,6 +20,7 @@ export async function UploadProducts(
     price,
     productImages,
     specification,
+    extraSpecs
   });
   return res;
 }
@@ -50,7 +52,8 @@ export async function updateProduct(
   specification,
   sku,
   price,
-  productImages
+  productImages,
+  extraSpecs
 ) {
   const res = await axios.put("http://localhost:4000/api/product/update", {
     title,
@@ -61,6 +64,7 @@ export async function updateProduct(
     sku,
     price,
     productImages,
+    extraSpecs
   });
   return res.data;
 }
