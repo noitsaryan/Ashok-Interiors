@@ -71,7 +71,7 @@ function Header() {
   };
 
   return (
-    <nav className="flex items-center justify-between p-3">
+    <nav className="flex items-center justify-between p-3 fixed top-0 z-50 bg-white left-0 right-0"> 
       <Link href="/">
         <Image
           alt="logo"
