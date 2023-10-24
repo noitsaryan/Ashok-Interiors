@@ -13,10 +13,6 @@ const page = () => {
     <main className="w-full md:h-screen h-auto bg-slate-50 flex flex-col items-center justify-center text-center gap-10 p-5 md:p-12 md:px-20">
       <div className="flex flex-col justify-center text-center items-center">
         <h2 className="text-5xl font-extrabold">Contact Us</h2>
-        <span className="w-52 bg-Secondary h-1"></span>
-        <p className="mt-2">
-          Contact Us for Expert Interior Design Services and Support
-        </p>
       </div>
       <section className="flex-1 w-full grid md:grid-cols-2 grid-cols-1 ">
         <div className=" bg-white h-full shadow-md grid grid-cols-2 gap-5 grid-rows-2 p-2 pt-5">
@@ -24,8 +20,8 @@ const page = () => {
             <RiMapPinLine className="border-2 w-16 h-16 rounded-full border-Secondary p-2" />
             <h2 className="font-semibold">ADDRESS:</h2>
             <p className="p-2 text-[13px]">
-              Shop No - 03, C-23,Poonam Sagar Complex,Mira Road(E),
-              Dist-ThaneMaharastra,
+              Shop No - 03, C-23, Poonam Sagar Complex, Mira Road(E),
+              Thane, Maharastra,
               <br /> Pin - 401107
             </p>
           </div>
@@ -34,13 +30,13 @@ const page = () => {
             <RiPhoneLine className="border-2 w-16 h-16 rounded-full border-Secondary p-2" />
             <h2 className="font-semibold">CALL US:</h2>
             <p className="p-2 text-[13px]">
-              +91 98192150880 |<br /> +91 2249728988
+              +91 98192150880 <br /> +91 2249728988
             </p>
           </div>
           <div className="flex flex-col items-center justify-start gap-1 text-center pt-2">
             <RiMailLine className="border-2 w-16 h-16 rounded-full border-Secondary p-2" />
             <h2 className="font-semibold">EMAIL:</h2>
-            <p className="p-2 text-[13px]">info@ashokinteriors.in</p>
+            <p className="p-2 text-[13px]">info@ashokinteriors.com</p>
           </div>
           <div className="flex flex-col items-center justify-start gap-1 text-center pt-3">
             <h2 className="font-semibold text-2xl text-Secondary">

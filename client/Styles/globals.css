@@ -4,7 +4,7 @@
 
 :root {
   --Primary: #fff;
-  --Secondary: #FF5C5C;
+  --Secondary: #ff5c5c;
   --PrimaryText: #535353;
   --SecondaryText: #a8a8a8;
   --Accent: #ffdab9;
@@ -26,7 +26,6 @@
 ::-webkit-scrollbar-thumb:hover {
   background-color: #555; /* Color on hover */
 }
-
 
 * {
   margin: 0;
@@ -139,7 +138,7 @@ div img {
 }
 ::ng-deep .swiper-button-prev:after,
 ::ng-deep .swiper-button-next:after {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .HeroSection {
@@ -195,7 +194,6 @@ div img {
   grid-row: 2/4;
   box-shadow: 5px 5px 8px 01px rgba(0, 0, 0, 0.1);
 
-
   /* background-color: var(--Secondary); */
 }
 .PortFolioSection div:nth-child(5) {
@@ -249,7 +247,6 @@ div img {
   grid-column: 1/2;
   grid-row: 9/10;
   box-shadow: 5px 5px 8px 01px rgba(0, 0, 0, 0.1);
-
 
   /* background-color: var(--Secondary); */
 }
@@ -348,12 +345,11 @@ div img {
   margin-top: 30px;
   position: relative;
   background-color: #fff;
-  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
-  
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .clientsImageDiv:hover .animationOfClients {
-  animation-play-state: paused; 
+  animation-play-state: paused;
 }
 @-webkit-keyframes scroll {
   0% {
@@ -380,7 +376,6 @@ div img {
   overflow: hidden;
   position: relative;
   margin-top: 30px;
- 
 }
 
 .clientsImageDiv::after {
@@ -394,7 +389,7 @@ div img {
 }
 .clientsImageDiv .slide-track {
   -webkit-animation: scroll 40s linear infinite;
-          animation: scroll 40s linear infinite;
+  animation: scroll 40s linear infinite;
   display: flex;
   width: calc(250px * 14);
   display: flex;
@@ -405,15 +400,20 @@ div img {
   width: 250px;
 }
 
-.gradSection{
+.gradSection {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 10;
-  background: rgb(255,255,255);
-  background: linear-gradient(90deg, rgba(255,255,255,0.6278886554621849) 0%, rgba(0,0,138,0) 55%, rgba(255,255,255,0.6278886554621849) 100%);  
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.6278886554621849) 0%,
+    rgba(0, 0, 138, 0) 55%,
+    rgba(255, 255, 255, 0.6278886554621849) 100%
+  );
 }
 /* About us Section   */
 .AboutUsSection {
@@ -460,12 +460,12 @@ div img {
   transition: 0.4s;
 }
 .ctgProductSection {
-display: flex;
-flex-direction: column;
-gap: 20px;
-padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
 }
-.ctgProductSection div{
+.ctgProductSection div {
   height: 400px;
   width: 100%;
   display: flex;
@@ -476,15 +476,14 @@ padding: 30px;
   background-repeat: no-repeat;
   background-size: cover;
 }
-.ctgProductSection div div{
+.ctgProductSection div div {
   border-radius: 6px;
   text-align: center;
-
 }
-.ctgProductSection div:nth-child(2n){
+.ctgProductSection div:nth-child(2n) {
   flex-direction: row-reverse;
 }
-.ctgProductSection .ctgImage{
+.ctgProductSection .ctgImage {
   width: 150%;
 }
 
@@ -494,22 +493,20 @@ padding: 30px;
   text-decoration: underline;
 }
 
-
-
 /* Contact Section  */
-.contactUsMain{
+.contactUsMain {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
-.contactSection{
+.contactSection {
   width: 100%;
   margin-top: 60px;
   display: flex;
   align-items: start;
-  justify-content:center;
+  justify-content: center;
   flex-direction: column;
   background-color: var(--Secondary);
   width: 80%;
@@ -518,23 +515,23 @@ padding: 30px;
   color: var(--Hover);
   padding: 30px;
   gap: 50px;
-
 }
-.contactSection span{
+.contactSection span {
   display: flex;
   align-items: center;
 
   gap: 20px;
 }
-.contactSection span h2{
+.contactSection span h2 {
   font-weight: 600;
-  font-size: 18px
+  font-size: 18px;
 }
-.contactSection span i{
+.contactSection span i {
   font-size: 20px;
 }
 /* Hover effects  */
-.ctgImage1:hover , .ctgImage:hover{
+.ctgImage1:hover,
+.ctgImage:hover {
   box-shadow: inset 0px 0px 54px 22px rgba(255, 255, 255, 0.726);
   transition: 0.4s;
 }
@@ -566,26 +563,25 @@ padding: 30px;
     height: 300px;
     border-radius: 0px;
   }
-  
+
   .shopProducts {
     flex-direction: column;
     padding: 20px;
   }
-  .ProductCard{
+  .ProductCard {
     width: 100%;
   }
-  .ctgImage{
+  .ctgImage {
     width: 100% !important;
-  
   }
 
   .clientsImageDiv span {
-   min-width: 200px;
+    min-width: 200px;
   }
   .AboutUsSection {
     padding: 20px;
   }
-  .ctgProductSection div{
+  .ctgProductSection div {
     height: 600px;
     width: 100%;
     display: flex;
@@ -593,23 +589,21 @@ padding: 30px;
     justify-content: center;
     flex-direction: column !important;
   }
-  .ctgProductSection div .ctgImage{
+  .ctgProductSection div .ctgImage {
     height: 170%;
   }
-  .contactSection{
+  .contactSection {
     width: 100%;
     border-radius: 0px;
     padding: 10px;
   }
-  .contactSection span{
+  .contactSection span {
     align-items: start;
   }
-  .contactSection span h2{
+  .contactSection span h2 {
     font-size: 16px;
   }
-
-  
-} 
+}
 
 /* whatsAppIcon */
 /* .whatsAppIcon{
@@ -626,32 +620,133 @@ padding: 30px;
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: radial-gradient(farthest-side,#474bff 94%,#0000) top/9px 9px no-repeat,
-         conic-gradient(#0000 30%,#474bff);
-  -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 9px),#000 0);
+  background: radial-gradient(farthest-side, #474bff 94%, #0000) top/9px 9px
+      no-repeat,
+    conic-gradient(#0000 30%, #474bff);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 9px), #000 0);
   animation: spinner-c7wet2 1s infinite linear;
 }
 
+/* For category animation  */
+
+.box {
+  position: relative;
+  max-height: 300px;
+  border-radius: 4px;
+  overflow: hidden;
+
+}
+
+.box .frame {
+  position: absolute;
+  border: 1px solid #fff;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.box h2,
+.box p {
+  position: absolute;
+  color: #fff;
+  z-index: 2;
+  width: 100%;
+  transition: opacity 0.2s, transform 0.3s;
+}
+.box h2 {
+  font-weight: 500;
+  font-size: 22px;
+  margin-bottom: 0;
+  letter-spacing: 1px;
+}
+
+.box img {
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+/* .blury-card .frame {
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+} */
+/* .blury-card h2,
+.blury-card p {
+  text-align: center;
+  top: 50%;
+  transform: translatey(-50%);
+  margin: 0;
+  z-index: 3;
+} */
+.blury-card p {
+  transform: translatey(30px);
+  letter-spacing: 3px;
+}
+.blury-card span {
+  font-size: 24px;
+}
+.blury-card:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: var(--PrimaryText);
+  z-index: 1;
+  left: 0;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+.blury-card img {
+  z-index: 2;
+}
+.blury-card:hover .frame {
+  width: calc(100% - 120px);
+  height: calc(100% - 120px);
+  opacity: 1;
+}
+.blury-card:hover img {
+  opacity: 0.7;
+}
+.blury-card:hover:before {
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+.imgDiv:hover h1 {
+  display: block;
+  transform: translate(-50%, -50%);
+  transition: 1s ease-in-out;
+}
 @keyframes spinner-c7wet2 {
   100% {
-     transform: rotate(1turn);
+    transform: rotate(1turn);
   }
 }
-.subMenudiv{
+.subMenudiv {
   display: none;
   background-color: var(--Primary);
   top: 22px;
-
 }
-.subMenu:hover .subMenudiv{
-display: flex;
+.subMenu:hover .subMenudiv {
+  display: flex;
 }
-.subMenudiv p{
-  border-radius: 3px ;
+.subMenudiv p {
+  border-radius: 3px;
   padding: 3px;
   color: var(--Secondary);
 }
-.subMenudiv p:hover{
- background-color: var(--Secondary);
- color:var(--Primary)
+.subMenudiv p:hover {
+  background-color: var(--Secondary);
+  color: var(--Primary);
+}
+
+.heroImg {
+  image-rendering: optimizeQuality; /* For modern browsers */
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.privacyPolicy > h2{
+    font-weight: 700;
 }

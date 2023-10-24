@@ -7,10 +7,25 @@ const Page = () => {
   const [ctg, setctg] = useState("Studio");
   const ProductCtg = [
     {
+      CtgName: "Home Theatre",
+      ImgTxt: [
+        "/shankar mahadevan/IMG-20200313-WA0022.jpg",
+        "/shankar mahadevan/IMG-20200313-WA0149.jpg",
+        "/shankar mahadevan/IMG-20200313-WA0148.jpg",
+        "/shankar mahadevan/IMG-20200313-WA0081.jpg",
+        "/shankar mahadevan/IMG-20200313-WA0079.jpg",
+        "/shankar mahadevan/IMG-20200313-WA0078.jpg",
+        "/shankar mahadevan/IMG-20200313-WA0058.jpg",
+        "/shankar mahadevan/IMG-20200313-WA0055.jpg",
+        "/shankar mahadevan/IMG-20200313-WA0054.jpg",
+        "/shankar mahadevan/IMG-20200313-WA0035.jpg",
+        "/shankar mahadevan/IMG-20200313-WA0030.jpg",
+        "/shankar mahadevan/IMG-20200313-WA0022.jpg",
+      ]
+    },
+    {
       CtgName: "Residential",
       ImgTxt: [
-        // "/CategoryImages/ResidentialImg/Img1.webp",
-        // "/CategoryImages/ResidentialImg/Img2.webp",
         "/CategoryImages/ResidentialImg/Img12.webp",
         "/CategoryImages/ResidentialImg/Img11.webp",
         "/CategoryImages/ResidentialImg/Img10.webp",
@@ -26,14 +41,16 @@ const Page = () => {
       ],
     },
     {
-      CtgName: "Commercial",
+      CtgName: "Showroom",
       ImgTxt: [
-        "/showroomSiamo/WhatsApp Image 2023-06-05 at 09.08.55.webp",
-        "/showroomSiamo/WhatsApp Image 2023-06-05 at 09.10.08.webp",
-        "/showroomSiamo/WhatsApp Image 2023-06-05 at 09.10.41.webp",
-        "/showroomSiamo/WhatsApp Image 2023-06-05 at 09.10.43.webp",
-        "/showroomSiamo/WhatsApp Image 2023-06-05 at 09.10.44.webp",
-        "/showroomSiamo/WhatsApp Image 2023-06-05 at 09.10.50.webp",
+        "/CategoryImages/Showroom/_D0A5187.jpg",
+        "/CategoryImages/Showroom/_D0A5454.jpg",
+        "/CategoryImages/Showroom/_D0A5822.jpg",
+        "/CategoryImages/Showroom/_D0A5921.jpg",
+        "/CategoryImages/Showroom/_D0A6001.jpg",
+        "/CategoryImages/Showroom/1P2A4508.jpg",
+        "/CategoryImages/Showroom/1P2A4873.jpg",
+        "/CategoryImages/Showroom/1P2A4921.jpg",
       ],
     },
     {
@@ -51,17 +68,7 @@ const Page = () => {
           ],
         },
         {
-          studioName: "Shankar Mahadevan Home Theatre",
-          stdImg: [
-            "/shankar mahadevan/1697544403-xiTzZ64SQfaX.webp",
-            "/shankar mahadevan/1697544404-4PtxaIox4Kv0.webp",
-            "/shankar mahadevan/1697544404-TogHgJQudUFk.webp",
-            "/shankar mahadevan/1697544405-asjMzxfOhxFg.webp",
-          ],
-        },
-       
-        {
-          studioName: " Sound and Vision Studios",
+          studioName: " Sound and Vision Studios Pvt Ltd.",
           stdImg: [
             "/sound and studios/Screenshot_20230709_231132_Instagram.webp",
             "/sound and studios/Screenshot_20230709_231225_Instagram.webp",
@@ -75,7 +82,7 @@ const Page = () => {
           ],
         },
         {
-          studioName: "Subhash Studios",
+          studioName: "Subhash Studios Pvt Ltd.",
           stdImg: [
             "/subhashStd/IMG_1754.webp",
             "/subhashStd/IMG_1758.webp",
@@ -136,18 +143,17 @@ const Page = () => {
   return (
     <main>
       <section className="ctgSection">
-        <h1 className="HtmlH1Txt">HAVE A GLANCE AT OUR PROJECTS</h1>
+        <h1 className="HtmlH1Txt uppercase">One Face For Your Entire Project</h1>
         <div>
           {ProductCtg.map((elem, i) => (
             <p
               key={i}
               onClick={() => ClickedCtg(elem.CtgName)}
               style={{
-                borderBottom: `${
-                  ctg == elem.CtgName
-                    ? "3px solid var(--Accent)"
-                    : "3px solid transparent"
-                }`,
+                borderBottom: `${ctg == elem.CtgName
+                  ? "3px solid var(--Accent)"
+                  : "3px solid transparent"
+                  }`,
               }}
             >
               {elem.CtgName}
@@ -170,15 +176,15 @@ const Page = () => {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full mb-9">
                           {elem.stdImg.map((elem, i) => {
                             return (
-                             <div className="overflow-hidden">
-                               <Image
-                                src={elem}
-                                key={i}
-                                alt="categories"
-                                width={600}
-                                height={300}
-                                className="hover:scale-105 duration-700 transition-all hover:rotate-1"
-                              />
+                              <div className="overflow-hidden">
+                                <Image
+                                  src={elem}
+                                  key={i}
+                                  alt="categories"
+                                  width={600}
+                                  height={300}
+                                  className="hover:scale-105 object-cover duration-700 transition-all hover:rotate-1"
+                                />
                               </div>
                             );
                           })}
@@ -196,15 +202,15 @@ const Page = () => {
                 >
                   {elem.ImgTxt.map((elem, i) => (
                     <div className="overflow-hidden">
-                    <Image
-                     src={elem}
-                     key={i}
-                     alt="categories"
-                     width={600}
-                     height={300}
-                     className="hover:scale-105 duration-700  transition-all hover:rotate-1"
-                   />
-                   </div>
+                      <Image
+                        src={elem}
+                        key={i}
+                        alt="categories"
+                        width={600}
+                        height={300}
+                        className="hover:scale-105 duration-700 object-cover transition-all hover:rotate-1"
+                      />
+                    </div>
                   ))}
                 </div>
               );

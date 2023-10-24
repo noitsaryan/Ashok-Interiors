@@ -203,12 +203,13 @@ function page({ params }) {
               <p className="text-gray-400 text-sm"> ({data.sku}) </p>
               {data.price ? (
                 <p className="font-bold text-3xl mt-2 text-Secondary">
-                  &#x20B9;{data.price.toLocaleString()}
+                  &#x20B9;{data.price.toLocaleString()}/-
                 </p>
               ) : (
                 <p className="font-bold text-3xl mt-2"></p>
               )}
             </div>
+
             <div className="px-4 py-4 h-auto flex flex-col items-start gap-2 w-full ">
               <span className="text-gray-400 flex gap-4 items-center justify-center">
                 <button
@@ -254,7 +255,7 @@ function page({ params }) {
                 {
                   data && data?.extraSpecs.map((e, i) => {
                     return <p>
-                     &#8226; {e.key} : {e.value}
+                      &#8226; {e.key} : {e.value}
                     </p>
                   })}
               </div>
@@ -269,6 +270,10 @@ function page({ params }) {
                   pictures because of the lighting. Since we use natural
                   materials, there may be some natural variations in color and
                   texture in the product you receive.
+                  <br />
+                  All our product prices include shipping charges and 18% GST.
+                  <br />
+                  We require a period of 7-8 Weeks to manufacture your orders.
                 </p>
               </div>
               <button
@@ -278,16 +283,9 @@ function page({ params }) {
               >
                 {expand ? "Less" : "More"}
               </button>
-              {/* <div className="flex flex-col gap-3 border-t border-b py-3 w-full">
-                <span className="border-b-2 border-Secondary w-10">Color</span>
-                <div className="flex gap-2">
-                 <div className="h-9 w-9 rounded-md  bg-red-900"></div> 
-                 <div className="h-9 w-9 rounded-md  bg-yellow-600"></div> 
-                 <div className="h-9 w-9 rounded-md  bg-yellow-900"></div> 
-                 </div>
-              </div> */}
 
             </div>
+            <h1 className="mx-auto md:mx-4 text-Secondary "> MADE TO ORDER </h1>
 
             <div className="flex-col md:flex-row flex items-center font-semibold m-4 gap-2">
               <p>Quantity</p>

@@ -31,6 +31,7 @@ function Header() {
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" }
   ];
+  const [isFixed, setIsFixed] = useState(false);
 
   let menu = "";
 
@@ -70,8 +71,35 @@ function Header() {
     setFound(filteredProducts.length > 0);
   };
 
+  const handleScroll = () => {
+    if (window.scrollY > 100) { // Change 100 to your desired scroll position
+      setIsFixed(true);
+    } else {
+      setIsFixed(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  // Style object for fixed position
+  const fixedNavbarStyle = {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "white",
+    zIndex: 100,
+  };
+
+
   return (
-    <nav className="flex items-center justify-between p-3 fixed top-0 z-50 bg-white left-0 right-0"> 
+    <nav className={`flex items-center justify-between p-3 transition-all ${isFixed ? 'fixed' : ''}`}
+      style={isFixed ? fixedNavbarStyle : {}} >
       <Link href="/">
         <Image
           alt="logo"
@@ -83,8 +111,8 @@ function Header() {
         />
       </Link>
       <div className="w-2/6 border hidden md:flex border-slate-300 p-1 px-2 rounded-full  items-center justify-between gap-3 relative">
-      <HiOutlineSearch className="text-xl text-Secondary" />
-    
+        <HiOutlineSearch className="text-xl text-Secondary" />
+
         <input
           type="text"
           className="outline-none flex-1  pl-1"
@@ -209,15 +237,15 @@ function Header() {
         </div>
       </div>
 
-     
-          <div className="md:hidden fixed -bottom-1 right-0 left-0 h-auto bg-white shadow-lg z-10 flex items-center justify-around text-2xl text-Secondary">
-            <Link href="/" className="flex flex-col items-center justify-center p-2">{location=="/" ? <RiHome4Fill/> : <RiHome4Line/>}<p className="text-sm">Home</p></Link>
-            <Link href="/shop" className="flex flex-col items-center justify-center p-2">{location=="/shop" ?<RiListCheck/>: <RiListUnordered/> }<p className="text-sm">Category</p></Link>
-            <Link href={login ? "/account/carts" : "/login"} className="flex flex-col items-center justify-center p-2">{location=="/account/carts" ? <RiShoppingCart2Fill/> :<RiShoppingCart2Line/> }<p className="text-sm">Cart</p></Link>
-            <Link href={login ? "/account" : "/login"} className="flex flex-col items-center justify-center p-2">{location=="/account" ? <RiUser3Fill/>: <RiUser3Line/>}<p className="text-sm">{login ? "Account" :  "Log In"}</p></Link>
-          </div>
-      
-     
+
+      <div className="md:hidden fixed -bottom-1 right-0 left-0 h-auto bg-white shadow-lg z-10 flex items-center justify-around text-2xl text-Secondary">
+        <Link href="/" className="flex flex-col items-center justify-center p-2">{location == "/" ? <RiHome4Fill /> : <RiHome4Line />}<p className="text-sm">Home</p></Link>
+        <Link href="/shop" className="flex flex-col items-center justify-center p-2">{location == "/shop" ? <RiListCheck /> : <RiListUnordered />}<p className="text-sm">Category</p></Link>
+        <Link href={login ? "/account/carts" : "/login"} className="flex flex-col items-center justify-center p-2">{location == "/account/carts" ? <RiShoppingCart2Fill /> : <RiShoppingCart2Line />}<p className="text-sm">Cart</p></Link>
+        <Link href={login ? "/account" : "/login"} className="flex flex-col items-center justify-center p-2">{location == "/account" ? <RiUser3Fill /> : <RiUser3Line />}<p className="text-sm">{login ? "Account" : "Log In"}</p></Link>
+      </div>
+
+
     </nav>
   );
 }

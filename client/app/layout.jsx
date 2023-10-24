@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <AppProvider>
-        <body className={`${serif.className} pt-20`}>
+        <body className={`${serif.className}`}>
           <Header />
           {children}
           <Footer />

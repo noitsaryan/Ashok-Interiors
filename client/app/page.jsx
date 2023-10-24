@@ -23,32 +23,43 @@ export default function page() {
   }
 
   const HeroSecImg = [
-    "/HeroSectionImg/hero1.webp",
-    "/HeroSectionImg/hero2.webp",
-    "/HeroSectionImg/hero3.webp",
-    "/HeroSectionImg/hero4.webp",
-    "/HeroSectionImg/hero5.webp",
-    "/HeroSectionImg/hero6.webp",
+    "/BG Images/_D0A5093.webp",
+    "/BG Images/_D0A5930.webp",
+    "/BG Images/_D0A5957.webp",
+    "/BG Images/1P2A4338.webp",
+    "/BG Images/1P2A4525.webp",
+    "/BG Images/1P2A4548.webp",
+    "/BG Images/714404c1-8e38-4b1b-ad85-e46c50ef7f23.webp",
+    "/BG Images/b13ee9_4329df269f304e05991908c6fc21c5cd~mv2.webp",
+    "/BG Images/DSC_5833.webp",
+    "/BG Images/FB_IMG_1688702749578.webp",
+    "/BG Images/FB_IMG_1688702751912.webp",
+    "/BG Images/FB_IMG_1688702765935.webp",
+    "/BG Images/IMG_1844.webp",
+    "client/public/BG Images/IMG-20200313-WA0148.webp"
   ];
 
   const Residence = [
-    "/CategoryImages/ResidentialImg/Img1.webp",
-    "/CategoryImages/ResidentialImg/Img2.webp",
-    "/CategoryImages/ResidentialImg/Img3.webp",
-    "/CategoryImages/ResidentialImg/Img4.webp",
-    "/CategoryImages/ResidentialImg/Img5.webp",
     "/CategoryImages/ResidentialImg/Img6.webp",
     "/CategoryImages/ResidentialImg/Img7.webp",
     "/CategoryImages/ResidentialImg/Img8.webp",
     "/CategoryImages/ResidentialImg/Img10.webp",
     "/CategoryImages/ResidentialImg/Img13.webp",
     "/CategoryImages/ResidentialImg/Img15.webp",
+    "/CategoryImages/ResidentialImg/Img1.webp",
+    "/CategoryImages/ResidentialImg/Img2.webp",
+    "/CategoryImages/ResidentialImg/Img4.webp",
+    "/CategoryImages/ResidentialImg/Img5.webp",
   ]
   const Commercial = [
-    "/CategoryImages/ResidentialImg/Img8.webp",
-    "/CategoryImages/ResidentialImg/Img10.webp",
-    "/CategoryImages/StudioImages/Img2.webp",
-    "/CategoryImages/StudioImages/Img3.webp",
+    "/CategoryImages/Showroom/_D0A5187.jpg",
+    "/CategoryImages/Showroom/_D0A5454.jpg",
+    "/CategoryImages/Showroom/_D0A5822.jpg",
+    "/CategoryImages/Showroom/_D0A5921.jpg",
+    "/CategoryImages/Showroom/_D0A6001.jpg",
+    "/CategoryImages/Showroom/1P2A4508.jpg",
+    "/CategoryImages/Showroom/1P2A4873.jpg",
+    "/CategoryImages/Showroom/1P2A4921.jpg",
   ]
   const Studio = [
     "/CategoryImages/StudioImages/Img1.webp",
@@ -100,7 +111,7 @@ export default function page() {
                 <div
 
                   style={{ backgroundImage: `url('${elem}')` }}
-                  className="h-full w-full bg-cover bg-no-repeat bg-center"
+                  className="h h-full w-full bg-cover bg-no-repeat bg-center"
                 ></div>
               </SwiperSlide>
             ))}
@@ -178,45 +189,59 @@ export default function page() {
       </div>
 
       <section className="my-6">
-        <div className="flex items-center justify-evenly">
-          <div className=" md:w-[200px] md:h-[200px] lg:w-[250px] lg:h-[250px] w-[100px] h-[100px]  ">
-            <Link href='/shop/residence'>
-              <Image
-                src="/assets/ResidentialCategory.jpg"
-                alt="categories"
-                width={300}
-                height={300}
-                className="object-cover rounded-full w-full h-full hover:rotate-6 transition-all cursor-pointer"
-              />
-            </Link>
-            <h1 className="font-medium "> Residential </h1>
+        <div className="flex  items-center justify-evenly  gap-4 px-4 ">
+
+          <div class="wrapper">
+            <div class="overflow-hidden" >
+              <Link href='/shop/residence'>
+                <Image
+                  src="/Ctg Images/1.jpg"
+                  alt="categories"
+                  width={300}
+                  height={300}
+                  className="object-cover w-[100px] h-[100px] rounded-full md:h-[200px] lg:h-[300px] md:w-[200px] lg:w-[300px]  shadow-md transition-all cursor-pointer"
+                />
+              </Link>
+              <h1>Residence</h1>
+            </div>
           </div>
-          <div className="md:w-[200px] md:h-[200px] lg:w-[250px] lg:h-[250px] w-[100px] h-[100px]  ">
-            <Link href='/shop/commercial'>
-              <Image
-                src="/assets/CommericialCategory.jpg"
-                alt="categories"
-                width={500}
-                height={300}
-                className="object-cover rounded-full w-full h-full hover:rotate-6 transition-all cursor-pointer"
-              />
-            </Link>
-            <h1 className="text-lg font-medium "> Commercial </h1>
+
+
+          <div class="wrapper  ">
+            <div class="" >
+              <Link href='/shop/commercial'>
+                <Image
+                  src="/Ctg Images/2.jpg"
+                  alt="categories"
+                  width={300}
+                  height={300}
+                  className="object-cover w-[100px] h-[100px] rounded-full md:h-[300px] md:w-[300px] shadow-md transition-all cursor-pointer"
+                />
+              </Link>
+              <h1>Commercial</h1>
+            </div>
           </div>
-          <div className="  md:w-[200px] md:h-[200px] lg:w-[250px] lg:h-[250px] w-[100px] h-[100px] medium">
-            <Link href='/shop/studio'>
-              <Image
-                src="/assets/StudioCategory.jpg"
-                alt="categories"
-                width={600}
-                height={300}
-                className="object-cover rounded-full w-full h-full hover:rotate-6 transition-all cursor-pointer"
-              />
-            </Link>
-            <h1 className="text-lg font-medium "> Studio </h1>
+
+
+          <div class="wrapper cursor-pointer  ">
+            <div class="" >
+              <Link href='/shop/studio'>
+                <Image
+                  src="/Ctg Images/3.jpg"
+                  alt="categories"
+                  width={300}
+                  height={300}
+                  className="object-cover   w-[100px] h-[100px] rounded-full md:h-[300px] md:w-[300px] shadow-md transition-all cursor-pointer"
+                />
+              </Link>
+              <h1>Studio</h1>
+              {/* <h2>RESIDENCE</h2>
+              <p> <Link href='/shop/studio'>Shop Now</Link></p> */}
+            </div>
           </div>
+
         </div>
-        
+
       </section>
       <br />
       <CtaButton
@@ -270,7 +295,7 @@ export default function page() {
         </Swiper>
       </section>
 
-     
+
       <section className="flex md:flex-col items-center px-8" >
         <h2 className="text-3xl my-4 underline underline-offset-2 ">Residential</h2>
 
@@ -321,7 +346,7 @@ export default function page() {
             })
           }
         </Swiper>
-        <h2 className="text-3xl my-4 underline underline-offset-2 ">Commercial</h2>
+        <h2 className="text-3xl my-4 underline underline-offset-2 ">Showroom</h2>
 
         <Swiper
           modules={[Autoplay, Pagination]}
